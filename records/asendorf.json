@@ -364,5 +364,16 @@
     "PXL DEX's 199.49 ETH primary is complete (all 256 tokens on-chain) but rests on the on-chain reconstruction alone — pxl.onl publishes the mint count, not proceeds.",
     "Primary-proceeds reconstruction for the remaining collections (Sabotage, Cargo, Event Horizon, Alternate, X0X), monthly volume series, holder concentration and wash-trade screening are Phase 2 items.",
     "Thin-floor collections (PXL POD, Monogrid) should be treated as indicative, not established."
-  ]
+  ],
+  "notice": {
+    "kicker": "pxl net — opens friday, july 11 at NODE, palo alto",
+    "text": "Pixels sold in person from $8 (4,096 PXL) to $2,560 (1,280,000) — proceeds fund NODE, 5% to panke.gallery. Receipts are generative NFTs that burn to redeem the underlying PXL. Artist-stated; this record verifies the contract on-chain once it's live.",
+    "href": "https://nodefoundation.com/program/pxl",
+    "link_label": "nodefoundation.com/program/pxl"
+  },
+  "frontispiece": {
+    "image": "https://raw2.seadn.io/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/5c62c2e7b9b06f3c66458fd9e01f90/0d5c62c2e7b9b06f3c66458fd9e01f90.svg",
+    "caption": "Pixel Pod 69 — PXL POD, 2026. 1,000,000 attached PXL. From the desk's own book.",
+    "url": "https://opensea.io/assets/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/69"
+  }
 }

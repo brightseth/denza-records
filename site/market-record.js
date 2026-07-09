@@ -62,7 +62,7 @@
     .bar-row{display:grid;grid-template-columns:130px 1fr 150px;gap:14px;align-items:center;margin:10px 0;font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
     .bar-track{height:14px;position:relative;background:var(--wash)}
     .bar-seg{position:absolute;top:0;bottom:0}
-    .legend{display:flex;gap:22px;margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+    .legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--muted)}
     .legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
     .callout{border-top:2px solid var(--ink);padding:18px 0 0;margin-top:28px}
     .callout .big{font-family:var(--mono);font-size:32px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
@@ -71,6 +71,19 @@
     ul.plain li::before{content:'—';position:absolute;left:0;color:var(--faint)}
     footer{border-top:1px solid var(--hairline);margin-top:88px;padding:24px 0 72px;font-family:var(--mono);font-size:12px;color:var(--muted)}
     footer a{color:var(--muted)}
+    header.has-frontis{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,320px);column-gap:48px;align-items:start}
+    .frontis{margin:0}
+    .frontis img{width:100%;height:auto;display:block;border:1px solid var(--hairline);background:var(--wash);image-rendering:pixelated}
+    .frontis figcaption{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
+    @media(max-width:860px){header.has-frontis{display:block}.frontis{max-width:280px;margin-top:28px}}
+    .notice-band{border-top:2px solid var(--accent);padding:12px 0 0;margin-top:6px;font-size:14px;color:var(--body);max-width:74ch}
+    .notice-band .nb-kicker{font-family:var(--mono);font-size:11px;text-transform:lowercase;letter-spacing:.04em;color:var(--accent);display:block;margin-bottom:4px}
+    .notice-band a{white-space:nowrap}
+    .contents{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:22px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+    .contents a{color:var(--muted);text-decoration:underline;text-decoration-color:var(--hairline);text-underline-offset:3px;text-transform:lowercase}
+    .contents a:hover{color:var(--ink);text-decoration-color:var(--ink)}
+    .contents .dot{color:var(--faint)}
+    html{scroll-behavior:smooth}
     .err{padding:80px 24px;text-align:center;color:var(--muted);font-family:var(--mono)}
     .usd{display:block;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:1px}
     .lookup{display:flex;gap:10px;margin-top:22px;max-width:620px;flex-wrap:wrap}
@@ -107,7 +120,7 @@
     .fb button{background:var(--ink);color:var(--bg);border:1px solid var(--ink);font-family:var(--sans);font-weight:500;font-size:14px;letter-spacing:.01em;padding:12px 22px;cursor:pointer;white-space:nowrap}
     .fb button:disabled{opacity:.4;cursor:default}
     .cwrap{display:flex;gap:12px;align-items:flex-start}
-    .cthumb{width:52px;height:52px;object-fit:cover;image-rendering:pixelated;border:1px solid var(--hairline);background:var(--wash);display:block;flex:none}
+    .cthumb{width:68px;height:68px;object-fit:cover;image-rendering:pixelated;border:1px solid var(--hairline);background:var(--wash);display:block;flex:none}
   `;
   document.head.insertAdjacentHTML('beforeend', `<style>${css}</style>`);
   const root = document.getElementById('mr');
@@ -212,7 +225,7 @@
     }).join('');
     const ck = (label, value) => `<div class="ck"><span>${label}</span><b>${value}</b></div>`;
     tokenBlock = `
-    ${bighead('03', `${esc(t.symbol)} — the token under the works`, `${esc(t.standard)} · verified on-chain ${esc(t.verified)}`)}
+    ${bighead('03', `${esc(t.symbol)} — the token under the works`, `${esc(t.standard)} · verified on-chain ${esc(t.verified)}`, 'pxl')}
     <div class="cockpit">
       ${ck('contract', `<a href="https://etherscan.io/token/${esc(t.contract)}" target="_blank" rel="noopener">${short(t.contract)}</a>`)}
       ${ck('standard', `${esc(t.standard)} · ${t.decimals} dec`)}
@@ -262,7 +275,7 @@
   if (ed) {
     const edNum = t ? '05' : '03';
     edBlock = `
-    ${bighead(edNum, esc(ed.title), esc(ed.sub || ''))}
+    ${bighead(edNum, esc(ed.title), esc(ed.sub || ''), 'read')}
     ${ed.throughline ? `<p class="lede" style="margin-top:0">${esc(ed.throughline)}</p>` : ''}
     ${(ed.timeline || []).length ? `<h2 class="sec">Chronology</h2>
     <div class="tblwrap"><table style="min-width:640px">
@@ -297,31 +310,58 @@
     </form>`;
   }
 
+  // Contents row — anchors for whatever sections this record actually has.
+  const contents = [
+    ['#collections', 'collections'],
+    ['#flow', 'money flow'],
+    d.token ? ['#pxl', d.token.symbol.toLowerCase()] : null,
+    d.token ? ['#book', 'your pxl book'] : null,
+    d.editorial ? ['#read', "the desk's read"] : null,
+    d.feedback ? ['#wishlist', 'wishlist'] : null,
+  ].filter(Boolean);
+
+  // Frontispiece — one work, catalogue-style, so the page opens with the art.
+  const fr = d.frontispiece;
+  const frontis = fr && safeUrl(fr.image) ? `<figure class="frontis">
+      <a href="${safeUrl(fr.url) || '#'}" target="_blank" rel="noopener"><img src="${safeUrl(fr.image)}" alt="${esc(fr.caption || '')}" loading="eager"></a>
+      ${fr.caption ? `<figcaption>${esc(fr.caption)}</figcaption>` : ''}
+    </figure>` : '';
+
+  const notice = d.notice ? `<div class="notice-band">
+      <span class="nb-kicker">${esc(d.notice.kicker || 'Notice')}</span>
+      <span>${esc(d.notice.text)}${d.notice.href ? ` <a href="${safeUrl(d.notice.href) || '#'}"${/^https?:/.test(d.notice.href || '') ? ' target="_blank" rel="noopener"' : ''}>${esc(d.notice.link_label || 'more')}</a>` : ''}</span>
+    </div>` : '';
+
   root.innerHTML = `${nav}
   <div class="wrap">
-    <header>
-      <div class="kicker">${esc(d.publisher)} · Market Record · snapshot ${esc(d.snapshot)}</div>
-      <h1>${esc(d.artist)}</h1>
-      <p class="lede">${esc(d.lede)}</p>
-      <div class="meta">
-        <div><span>Collections</span><b>${d.collections.length}</b></div>
-        <div><span>Chains</span><b>${[...new Set(d.collections.map(c => c.chain))].length}</b></div>
-        <div><span>Tokens</span><b>${fmt(d.collections.reduce((s, c) => s + c.supply, 0), 0)}</b></div>
-        <div><span>Holders (gross)</span><b>${fmt(totHolders, 0)}</b></div>
-        <div><span>ETH secondary (OpenSea)</span><b>${fmt(totSecondary, 0)} ETH</b>${usd(totSecondary, 'ETH')}</div>
-        ${totPrimary > 0 ? `<div><span>Verified primary</span><b class="gold">${fmt(totPrimary, 2)} ETH</b>${usd(totPrimary, 'ETH')}</div>` : ''}
+    <header${frontis ? ' class="has-frontis"' : ''}>
+      <div class="h-text">
+        <div class="kicker">${esc(d.publisher)} · Market Record · snapshot ${esc(d.snapshot)}</div>
+        <h1>${esc(d.artist)}</h1>
+        <p class="lede">${esc(d.lede)}</p>
+        <div class="meta">
+          <div><span>Collections</span><b>${d.collections.length}</b></div>
+          <div><span>Chains</span><b>${[...new Set(d.collections.map(c => c.chain))].length}</b></div>
+          <div><span>Tokens</span><b>${fmt(d.collections.reduce((s, c) => s + c.supply, 0), 0)}</b></div>
+          <div><span>Holders (gross)</span><b>${fmt(totHolders, 0)}</b></div>
+          <div><span>ETH secondary (OpenSea)</span><b>${fmt(totSecondary, 0)} ETH</b>${usd(totSecondary, 'ETH')}</div>
+          ${totPrimary > 0 ? `<div><span>Verified primary</span><b class="gold">${fmt(totPrimary, 2)} ETH</b>${usd(totPrimary, 'ETH')}</div>` : ''}
+        </div>
+        ${(d.artist_links || []).length ? `<div class="alinks">${d.artist_links.map(l => `<a href="${safeUrl(l.url) || '#'}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>` : ''}
       </div>
-      ${(d.artist_links || []).length ? `<div class="alinks">${d.artist_links.map(l => `<a href="${safeUrl(l.url) || '#'}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>` : ''}
-      <div class="note"><b>Reading the volume figures.</b> ${esc(d.metric_note)}</div>
+      ${frontis}
     </header>
+    ${notice}
+    <div class="contents">${contents.map(([href, label]) => `<a href="${href}">${label}</a>`).join('<span class="dot">·</span>')}</div>
+    <div class="note"><b>Reading the volume figures.</b> ${esc(d.metric_note)}</div>
 
-    ${bighead('01', 'Collections', `${d.collections.length} bodies of work · ${esc([...new Set(d.collections.map(c => c.chain))].join(' + '))}`)}
+    ${bighead('01', 'Collections', `${d.collections.length} bodies of work · ${esc([...new Set(d.collections.map(c => c.chain))].join(' + '))}`, 'collections')}
     <div class="tblwrap"><table>
       <thead><tr><th>Collection</th><th class="num">Supply</th><th class="num">Holders</th><th class="num">Floor</th><th class="num">Secondary vol (all-time)</th><th class="num">Primary (verified)</th><th class="num">30d vol</th><th>Gondi lending</th></tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
 
-    ${bighead('02', 'Money flow', 'all-time · Ethereum collections · ETH')}
+    ${bighead('02', 'Money flow', 'all-time · Ethereum collections · ETH', 'flow')}
     <div class="chart">${bars}
       <div class="legend"><span><i style="background:var(--ink)"></i>OpenSea secondary</span>${totPrimary > 0 ? '<span><i style="background:var(--gold)"></i>Verified on-chain primary</span>' : ''}</div>
     </div>
@@ -344,7 +384,10 @@
     <footer>
       Data: <a href="/market/${esc(d.slug)}.json">denza.studio/market/${esc(d.slug)}.json</a> — cite freely with the snapshot date.
       Assembled by ${esc(d.publisher)} from public onchain and marketplace sources. Not investment advice.<br>
-      Disclosure: the desk collects the work it records — ${esc(d.publisher)}'s operator holds positions in works covered by this record.
+      Disclosure: the desk collects the work it records — ${esc(d.publisher)}'s operator holds positions in works covered by this record.<br>
+      This record is a collaborative work in progress: data, renderer and method are open at
+      <a href="https://github.com/brightseth/denza-records" target="_blank" rel="noopener">github.com/brightseth/denza-records</a>
+      — corrections with evidence are merged and credited.
     </footer>
   </div>`;
 
