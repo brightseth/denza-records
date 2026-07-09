@@ -234,7 +234,7 @@
           <div class="bar-seg" style="left:0;width:${w(sec)}%;background:var(--ink)"></div>
           ${pri ? `<div class="bar-seg" style="left:${w(sec)}%;width:${w(pri)}%;background:var(--gold)"></div>` : ''}
         </div>
-        <div style="text-align:right">${label} ETH${usd(sec + pri, 'ETH')}</div></div>`;
+        <div style="text-align:right">${label} ETH</div></div>`;
     }).join('');
 
   // Primary reconstructions — verified figures, USD at the sale window's ETH price
@@ -381,7 +381,7 @@
       <input id="pbWallet" type="text" autocomplete="off" spellcheck="false" placeholder="vitalik.eth  or  0x1234…abcd" aria-label="Address or ENS name"/>
       <button type="submit" id="pbGo">Read the book</button>
     </form>
-    <p class="reassure"><b>Read-only.</b> No wallet connection, no signature, nothing to approve — this reads the same public on-chain data anyone can, one address at a time. We never store the address you enter.</p>
+    <p class="reassure"><b>Read-only.</b> No wallet connection, no signature, nothing to approve — this reads the same public on-chain data anyone can, one address at a time. We don't store the address on our servers — though a shared ?wallet= link keeps it in your own browser history.</p>
     <div id="pbStatus" class="pb-status"></div>
     <div id="pbResults" style="display:none">
       <div class="callout" id="pbHook"></div>
@@ -450,7 +450,7 @@
         <input id="fbContact" type="text" maxlength="200" autocomplete="off" spellcheck="false" placeholder="contact (optional) — ENS, X, Discord, email" aria-label="Contact (optional)"/>
         <button type="submit" id="fbGo">Send to the desk</button>
       </div>
-      <p class="reassure"><b>One-way note.</b> Nothing is stored and no account is created — your note goes straight to the desk and that's it. Leave a contact only if you'd like a reply.</p>
+      <p class="reassure"><b>One-way note.</b> Your note is delivered to the desk over Telegram (where it persists in that chat) — we keep no separate database and create no account. Leave a contact only if you'd like a reply.</p>
       <div id="fbStatus" class="pb-status"></div>
     </form>`;
   }
@@ -459,7 +459,7 @@
   const contents = [
     ['#collections', 'collections'],
     ['#flow', 'money flow'],
-    d.token ? ['#pxl', `the ${d.token.symbol.toLowerCase()} ecosystem`] : null,
+    d.token ? ['#pxl', `the ${esc(d.token.symbol.toLowerCase())} ecosystem`] : null,
     d.token ? ['#book', 'your pxl book'] : null,
     d.editorial ? ['#read', "the desk's read"] : null,
     d.voices && ((d.voices.entries || []).length || d.voices.invite) ? ['#voices', 'collector voices'] : null,
@@ -498,7 +498,7 @@
       ${frontis}
     </header>
     ${notice}
-    <div class="contents">${contents.map(([href, label]) => `<a href="${href}">${label}</a>`).join('<span class="dot">·</span>')}</div>
+    <div class="contents">${contents.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('<span class="dot">·</span>')}</div>
     <div class="note"><b>Reading the volume figures.</b> ${esc(d.metric_note)}</div>
 
     ${bighead('01', 'Collections', `${d.collections.length} bodies of work · ${esc([...new Set(d.collections.map(c => c.chain))].join(' + '))}`, 'collections')}
