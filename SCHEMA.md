@@ -93,6 +93,17 @@ is fully data-driven — a valid record file is a working page. Fields marked
     "title": "Wishlist", "sub": "…", "prompt": "…", "placeholder": "…"
   },
 
+  // Any claim-bearing object may carry provenance — its epistemic state, shown inline.
+  // Absent provenance renders as plain data. States: artist-stated | observed |
+  // reconstructed | onchain-verified | disputed | superseded. A `verify` block lets the
+  // claim auto-transition when a contract deploys (see docs/claim-state-machine-spec.md).
+  "provenance": {
+    "id": "asendorf.net.capacity", "state": "artist-stated", "as_of": "2026-07-06",
+    "source": "Kim Asendorf, Discord",
+    "evidence": [ { "kind": "etherscan-tx", "ref": "0x…" } ],
+    "verify": { "contract": null, "call": "cap()", "expect": { "op": "lte", "value": 128000000 } }
+  },
+  "revision": 1, "revised_at": "2026-07-09",
   "method": [ "How each class of figure was obtained." ],
   "caveats": [ "Known gaps, single-venue limits, Phase-2 items." ]
 }

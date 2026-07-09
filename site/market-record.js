@@ -103,6 +103,14 @@
     .fold summary:hover{color:var(--ink)}
     .fold[open] summary{color:var(--ink);margin-bottom:6px}
     .fold p{font-size:14px;color:var(--body)}
+    .cstate{font-family:var(--mono);font-size:10px;text-transform:lowercase;letter-spacing:.04em;color:var(--muted);display:inline-block}
+    .cstate.accent{color:var(--accent)}
+    a.cstate{text-decoration:underline;text-decoration-color:var(--hairline);text-underline-offset:2px}
+    a.cstate:hover{color:var(--ink)}
+    .callout .cstate{margin:2px 0 4px}
+    .claimlist{margin-top:12px;border-top:1px solid var(--hairline);padding-top:10px}
+    .claimrow{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:4px 0;font-size:12.5px;color:var(--body)}
+    .claimrow .cl-label{min-width:0}
     html{scroll-behavior:smooth}
     .err{padding:80px 24px;text-align:center;color:var(--muted);font-family:var(--mono)}
     .usd{display:block;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:1px}
@@ -157,6 +165,20 @@
   document.title = `${d.artist} — Market Record · ${d.publisher}`;
 
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  // Claim provenance → a small mono state marker (DESIGN.md: ink, not P&L color;
+  // accent only on disputed/superseded, never on numbers). Absent provenance renders nothing.
+  const STATE_LABEL = { 'artist-stated':'artist-stated', 'observed':'observed', 'reconstructed':'reconstructed on-chain', 'onchain-verified':'verified on-chain', 'disputed':'disputed', 'superseded':'superseded' };
+  function stateChip(p) {
+    if (!p || !p.state) return '';
+    const label = STATE_LABEL[p.state] || p.state;
+    const date = p.as_of ? ` · ${esc(p.as_of)}` : (p.block ? ` · block ${fmt(p.block, 0)}` : '');
+    const cls = (p.state === 'disputed' || p.state === 'superseded') ? 'cstate accent' : 'cstate';
+    const ev = (p.evidence || []).find(e => e && (e.kind === 'etherscan-tx' || e.kind === 'contract-call') && /^0x[0-9a-fA-F]{6,}/.test(String(e.ref)));
+    const inner = `${esc(label)}${date}`;
+    if (ev) { const addr = String(ev.ref).split('#')[0]; const path = ev.kind === 'etherscan-tx' ? 'tx' : 'address'; return `<a class="${cls}" href="https://etherscan.io/${path}/${esc(addr)}" target="_blank" rel="noopener">${inner}</a>`; }
+    return `<span class="${cls}">${inner}</span>`;
+  }
   // URLs from the record JSON only ever land in href/src if http(s) or site-relative.
   const safeUrl = u => /^(https?:\/\/|\/)/i.test(String(u ?? '')) ? esc(u) : '';
   const fmtM = n => n == null ? '—' : (n >= 1e6 ? (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : Number(n).toLocaleString('en-US'));
@@ -199,7 +221,7 @@
       `<a href="https://etherscan.io/tx/${esc(s.tx)}" target="_blank" rel="noopener">${esc(s.token)} @ ${fmt(s.price, 1)} ${esc(s.currency)}</a> (${esc(s.date)}${s.note ? ` — ${esc(s.note)}` : ''})`
     ).join(' · ');
     const flagLine = (c.flags || []).length || sales
-      ? `<div class="cflag">${(c.flags || []).map(esc).join(' ')}${sales ? ` ${sales}.` : ''}</div>` : '';
+      ? `<div class="cflag">${(c.flags || []).map(esc).join(' ')}${sales ? ` ${sales}.` : ''}${c.secondary_provenance ? ` ${stateChip(c.secondary_provenance)}` : ''}</div>` : '';
     // A strip of representative works — the record reads as a catalogue, not a spreadsheet.
     const worksStrip = (c.works || []).length ? `<div class="cworks">${c.works.map(w =>
       safeUrl(w.image) ? `<a href="${safeUrl(w.url) || '#'}" target="_blank" rel="noopener" title="${esc(w.token)}"><img src="${safeUrl(w.image)}" alt="${esc(w.token)}" loading="lazy"></a>` : ''
@@ -244,10 +266,12 @@
     const usdBit = fx
       ? ` <span style="font-size:15px;font-weight:400;color:var(--muted)">≈ ${fmtUsd(c.primary.proceeds * fx.eth_usd)} · ETH at $${Math.round(fx.eth_usd).toLocaleString('en-US')} (${esc(fx.source)}, mint-window avg)</span>`
       : (rate('ETH') ? ` <span style="font-size:15px;font-weight:400;color:var(--muted)">≈ ${fmtUsd(c.primary.proceeds * rate('ETH'))}</span>` : '');
+    const at = c.primary.artist_total;
     return `<div class="callout">
       <div class="kicker">Primary reconstruction · ${esc(c.name)}</div>
       <div class="big">${fmt(c.primary.proceeds, 2)} ETH${usdBit}</div>
-      <p>${esc(c.primary.paid_mint_txs)} paid mint transactions into the contract, ${esc(c.primary.window)} — ${esc(c.primary.price_range)}.</p>
+      ${stateChip(c.primary.provenance)}
+      <p>${esc(c.primary.paid_mint_txs)} paid mint transactions into the contract, ${esc(c.primary.window)} — ${esc(c.primary.price_range)}.${at ? ` Artist-reported total ≈ ${fmt(at.value, 0)} ${esc(at.currency)} incl. OTC/gallery ${stateChip(at.provenance)}` : ''}</p>
       <details class="fold"><summary>method &amp; caveats</summary><p>${esc(c.primary.note)}</p></details>
     </div>`;
   }).join('');
@@ -269,6 +293,7 @@
     const ck = (label, value) => `<div class="ck"><span>${label}</span><b>${value}</b></div>`;
     tokenBlock = `
     ${bighead('03', `The ${esc(t.symbol)} ecosystem`, `one token under the works · ${esc(t.standard)} · verified on-chain ${esc(t.verified)}`, 'pxl')}
+    ${t.supply_provenance ? `<div style="margin-top:-8px">${stateChip(t.supply_provenance)}</div>` : ''}
     <div class="cockpit">
       ${ck('contract', `<a href="https://etherscan.io/token/${esc(t.contract)}" target="_blank" rel="noopener">${short(t.contract)}</a>`)}
       ${ck('standard', `${esc(t.standard)} · ${t.decimals} dec`)}
@@ -370,6 +395,7 @@
     ${t.next_release ? `<div class="notice-band" style="margin-top:34px">
       <span class="nb-kicker">${esc(t.next_release.title)}</span>
       <span>${esc(t.next_release.text)}</span>
+      ${(t.next_release.claims || []).length ? `<div class="claimlist">${t.next_release.claims.map(cl => `<div class="claimrow"><span class="cl-label">${esc(cl.label)}</span>${stateChip(cl.provenance)}</div>`).join('')}</div>` : ''}
     </div>` : ''}
     ${primariesHtml}
     <div class="note"><b>Headroom.</b> ${fmt(t.deck_allowance_remaining, 0)} PXL of unminted deck allowance remains on-chain (${t.decks_with_intact_allowance} of 256 decks fully intact at 500,000 each), mintable only by deck owners at ${t.mint_price_eth} ETH per PXL. Beyond the decks, new works can be granted fresh mint allowances up to the ${fmt(t.cap, 0)} hard cap.</div>
@@ -525,7 +551,7 @@
     <ul class="plain">${d.caveats.map(m => `<li>${esc(m)}</li>`).join('')}</ul>
 
     <footer>
-      Data: <a href="/market/${esc(d.slug)}.json">denza.studio/market/${esc(d.slug)}.json</a> — cite freely with the snapshot date.
+      Data: <a href="/market/${esc(d.slug)}.json">denza.studio/market/${esc(d.slug)}.json</a> — cite freely with the snapshot date${d.revision != null ? ` · revision ${esc(d.revision)}${d.revised_at ? ` (${esc(d.revised_at)})` : ''}` : ''}.
       Assembled by ${esc(d.publisher)} from public onchain and marketplace sources. Not investment advice.<br>
       Disclosure: the desk collects the work it records — ${esc(d.publisher)}'s operator holds positions in works covered by this record.<br>
       This record is a collaborative work in progress: data, renderer and method are open at

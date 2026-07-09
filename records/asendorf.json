@@ -56,7 +56,101 @@
     ],
     "next_release": {
       "title": "next release — PXL NET · opens saturday, july 11 at NODE, palo alto",
-      "text": "PXL NET opens July 11, 2026 at NODE, Palo Alto (nodefoundation.com). Artist-stated mechanics (Discord, 2026-07-04–08; contract not yet deployed — to be verified on-chain): the net holds up to 128,000,000 PXL; visitors buy PXL at the exhibition from $8 (4,096 PXL) to $2,560 (1,280,000 PXL) — a flat ~$0.002 per PXL, roughly the deck-mint parity in USD; sale proceeds remain at NODE as a fundraiser, with 5% donated to panke.gallery, Berlin. Participation is in-person only (RFID cards + a NODE app smart wallet; each buyer has their own wallet, NODE holds a spend approval). Adding PXL to the net issues a generative receipt NFT ('PXL NODE', 100–31,250 total, 24 properties across shapes/animations/tweens, randomized on-chain). Receipts are immutable — no deposits or withdrawals — but can be burned through the contract to redeem the underlying PXL: the burn destroys the artwork and returns the tokens, a redemption right, not a supply sink. Token 0 displays all PXL in the net without owning them."
+      "text": "PXL NET opens July 11, 2026 at NODE, Palo Alto (nodefoundation.com). Artist-stated mechanics (Discord, 2026-07-04–08; contract not yet deployed — to be verified on-chain): the net holds up to 128,000,000 PXL; visitors buy PXL at the exhibition from $8 (4,096 PXL) to $2,560 (1,280,000 PXL) — a flat ~$0.002 per PXL, roughly the deck-mint parity in USD; sale proceeds remain at NODE as a fundraiser, with 5% donated to panke.gallery, Berlin. Participation is in-person only (RFID cards + a NODE app smart wallet; each buyer has their own wallet, NODE holds a spend approval). Adding PXL to the net issues a generative receipt NFT ('PXL NODE', 100–31,250 total, 24 properties across shapes/animations/tweens, randomized on-chain). Receipts are immutable — no deposits or withdrawals — but can be burned through the contract to redeem the underlying PXL: the burn destroys the artwork and returns the tokens, a redemption right, not a supply sink. Token 0 displays all PXL in the net without owning them.",
+      "claims": [
+        {
+          "key": "capacity",
+          "label": "holds up to 128M PXL",
+          "value": 128000000,
+          "provenance": {
+            "id": "asendorf.net.capacity",
+            "state": "artist-stated",
+            "as_of": "2026-07-06",
+            "source": "Kim Asendorf, Discord",
+            "verify": {
+              "contract": null,
+              "call": "cap()",
+              "expect": {
+                "op": "lte",
+                "value": 128000000
+              }
+            },
+            "history": [
+              {
+                "to": "artist-stated",
+                "as_of": "2026-07-06",
+                "by": "authored"
+              }
+            ]
+          }
+        },
+        {
+          "key": "burn_redeem",
+          "label": "receipts burn to redeem the underlying PXL",
+          "provenance": {
+            "id": "asendorf.net.burn_redeem",
+            "state": "artist-stated",
+            "as_of": "2026-07-06",
+            "source": "Kim Asendorf, Discord",
+            "verify": {
+              "contract": null,
+              "check": "selector-present",
+              "selector": "redeem"
+            },
+            "history": [
+              {
+                "to": "artist-stated",
+                "as_of": "2026-07-06",
+                "by": "authored"
+              }
+            ]
+          }
+        },
+        {
+          "key": "price",
+          "label": "$8 (4,096 PXL) → $2,560 (1,280,000)",
+          "provenance": {
+            "id": "asendorf.net.price",
+            "state": "artist-stated",
+            "as_of": "2026-07-06",
+            "source": "Kim Asendorf, NODE",
+            "verify": {
+              "contract": null,
+              "check": "price-tiers-exact",
+              "expect": {
+                "min": 4096,
+                "max": 1280000
+              }
+            },
+            "history": [
+              {
+                "to": "artist-stated",
+                "as_of": "2026-07-06",
+                "by": "authored"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "supply_provenance": {
+      "id": "asendorf.pxl.supply",
+      "state": "onchain-verified",
+      "as_of": "2026-07-06",
+      "source": "direct contract reads: cap(), totalSupply(), balanceOf on the two art contracts",
+      "evidence": [
+        {
+          "kind": "contract-call",
+          "ref": "0xb6c1...2a56#cap()"
+        }
+      ],
+      "history": [
+        {
+          "to": "onchain-verified",
+          "as_of": "2026-07-06",
+          "by": "authored"
+        }
+      ]
     }
   },
   "editorial": {
@@ -168,6 +262,48 @@
           "window": "2026-03-07 → 2026-03-08",
           "basis": "ETH-USD daily closes averaged over the mint window",
           "source": "Coinbase"
+        },
+        "provenance": {
+          "id": "asendorf.pod.primary",
+          "state": "reconstructed",
+          "as_of": "2026-07-06",
+          "source": "on-chain reconstruction (Etherscan txlist)",
+          "evidence": [
+            {
+              "kind": "contract-call",
+              "ref": "0xaee0...88b3"
+            }
+          ],
+          "history": [
+            {
+              "to": "reconstructed",
+              "as_of": "2026-07-06",
+              "by": "authored"
+            }
+          ]
+        },
+        "artist_total": {
+          "value": 380,
+          "currency": "ETH",
+          "provenance": {
+            "id": "asendorf.pod.primary_total",
+            "state": "artist-stated",
+            "as_of": "2026-07-06",
+            "source": "Kim Asendorf, Discord",
+            "evidence": [
+              {
+                "kind": "url",
+                "ref": "https://pxl.onl"
+              }
+            ],
+            "history": [
+              {
+                "to": "artist-stated",
+                "as_of": "2026-07-06",
+                "by": "authored"
+              }
+            ]
+          }
         }
       },
       "image": "https://raw2.seadn.io/collection/pxl-pod/image_type_logo/ae2acc4f1db462a3c538e940c336e2/32ae2acc4f1db462a3c538e940c336e2.svg",
@@ -192,7 +328,31 @@
           "image": "https://raw2.seadn.io/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/d055cf0eccc8ef84038114e4bbed07/0ad055cf0eccc8ef84038114e4bbed07.svg",
           "url": "https://opensea.io/assets/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/58"
         }
-      ]
+      ],
+      "secondary_provenance": {
+        "id": "asendorf.pod.secondary",
+        "state": "onchain-verified",
+        "as_of": "2026-07-08",
+        "source": "OpenSea sale events, both prints tx-linked",
+        "block": null,
+        "evidence": [
+          {
+            "kind": "etherscan-tx",
+            "ref": "0xadbc47a85a69f71f67372f15867404d4bfb22f66f0cc6235a28a4e3666292c47"
+          },
+          {
+            "kind": "etherscan-tx",
+            "ref": "0x4f0444549c8e56a73a4e52f3c90f3b1c085e23c75d0f4a992c0b0c25e472f178"
+          }
+        ],
+        "history": [
+          {
+            "to": "onchain-verified",
+            "as_of": "2026-07-08",
+            "by": "authored"
+          }
+        ]
+      }
     },
     {
       "name": "PXL DEX",
@@ -229,6 +389,29 @@
           "window": "2025-01-17 → 2025-02-24",
           "basis": "ETH-USD daily closes averaged over the mint window",
           "source": "Coinbase"
+        },
+        "provenance": {
+          "id": "asendorf.dex.primary",
+          "state": "reconstructed",
+          "as_of": "2026-07-06",
+          "source": "on-chain reconstruction (Etherscan txlist)",
+          "evidence": [
+            {
+              "kind": "contract-call",
+              "ref": "0x8134...ecfb"
+            },
+            {
+              "kind": "url",
+              "ref": "https://pxl.onl"
+            }
+          ],
+          "history": [
+            {
+              "to": "reconstructed",
+              "as_of": "2026-07-06",
+              "by": "authored"
+            }
+          ]
         }
       },
       "image": "https://raw2.seadn.io/ethereum/7680583beca5447eb61fa682ee406bf5/4e1369f73a17a1c6700b5c3eee6851/e54e1369f73a17a1c6700b5c3eee6851.svg",
@@ -555,5 +738,7 @@
     "invite": "Answer in the ASDF Discord or through the wishlist box below: what's your favorite work of Kim's that you own, and why that one? Selected answers appear here, credited (or anonymous if you prefer).",
     "entries": []
   },
-  "secondary_usd_note": "Secondary volume shown in ETH only — historical all-time totals can't be honestly spot-converted; per-collection primaries convert at their mint-window ETH price."
+  "secondary_usd_note": "Secondary volume shown in ETH only — historical all-time totals can't be honestly spot-converted; per-collection primaries convert at their mint-window ETH price.",
+  "revision": 1,
+  "revised_at": "2026-07-09"
 }
