@@ -75,6 +75,7 @@
     .frontis{margin:0}
     .frontis img{width:100%;height:auto;display:block;border:1px solid var(--hairline);background:var(--wash);image-rendering:pixelated}
     .frontis figcaption{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
+    .frontis-live{width:100%;aspect-ratio:1/1;border:1px solid var(--hairline);display:block;background:#000}
     @media(max-width:860px){header.has-frontis{display:block}.frontis{max-width:280px;margin-top:28px}}
     .notice-band{border-top:2px solid var(--accent);padding:12px 0 0;margin-top:6px;font-size:14px;color:var(--body);max-width:74ch}
     .notice-band .nb-kicker{font-family:var(--mono);font-size:11px;text-transform:lowercase;letter-spacing:.04em;color:var(--accent);display:block;margin-bottom:4px}
@@ -519,6 +520,38 @@
     themeBtn.textContent = dark ? 'dark' : 'light';
     try { localStorage.setItem('denza-theme', dark ? 'light' : 'dark'); } catch { /* private mode */ }
   });
+
+  // Live frontispiece: PXL POD is fully on-chain — read tokenURI through our own
+  // read-only RPC proxy, decode the data-URI generator, render it sandboxed.
+  // Any failure leaves the static image in place.
+  if (fr && fr.live && fr.live.contract && fr.live.tokenId != null) (async () => {
+    try {
+      const sel = '0xc87b56dd' + BigInt(fr.live.tokenId).toString(16).padStart(64, '0');
+      const r = await fetch('/api/rpc', { method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'eth_call', params: [{ to: fr.live.contract, data: sel }, 'latest'] }) });
+      const hex = ((await r.json()).result || '').slice(2);
+      if (hex.length < 130) return;
+      const len = parseInt(hex.slice(64, 128), 16);
+      const raw = hex.slice(128, 128 + len * 2);
+      let uri = ''; for (let i = 0; i < raw.length; i += 2) uri += String.fromCharCode(parseInt(raw.substr(i, 2), 16));
+      const b64 = uri.replace('data:application/json;base64,', '');
+      const bytes = Uint8Array.from(atob(b64), ch => ch.charCodeAt(0));
+      const meta = JSON.parse(new TextDecoder().decode(bytes));
+      const anim = String(meta.animation_url || '');
+      if (!anim.startsWith('data:text/html')) return;
+      const fig = document.querySelector('.frontis');
+      if (!fig) return;
+      const f = document.createElement('iframe');
+      f.className = 'frontis-live';
+      f.setAttribute('sandbox', 'allow-scripts');
+      f.setAttribute('scrolling', 'no');
+      f.title = fr.caption || 'live on-chain render';
+      f.src = anim;
+      fig.querySelector('a')?.replaceWith(f);
+      const cap = fig.querySelector('figcaption');
+      if (cap) cap.textContent += ' Rendering live from the contract.';
+    } catch { /* static image stands */ }
+  })();
 
   const pbForm = document.getElementById('pbForm');
   if (pbForm) {

@@ -527,8 +527,12 @@
   },
   "frontispiece": {
     "image": "https://raw2.seadn.io/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/5c62c2e7b9b06f3c66458fd9e01f90/0d5c62c2e7b9b06f3c66458fd9e01f90.svg",
-    "caption": "Pixel Pod 69 — PXL POD, 2026. 1,000,000 attached PXL. From the desk's own book.",
-    "url": "https://opensea.io/assets/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/69"
+    "caption": "Pixel Pod 69 — PXL POD, 2026. 1,000,000 attached PXL, fully on-chain. From the desk's own book.",
+    "url": "https://opensea.io/assets/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/69",
+    "live": {
+      "contract": "0xaee022552b539db18297d7481b6d547c622488b3",
+      "tokenId": 69
+    }
   },
   "voices": {
     "title": "Collector voices",
