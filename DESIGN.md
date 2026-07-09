@@ -56,8 +56,10 @@ Dark mode (user toggle in the nav; light is the default, stored in
 
 - **No other colors.** No blues (#6B8FFF was the Claude-default tell), no golds, no
   gradients. Artwork thumbnails supply all remaining color.
-- `--accent` is reserved for data that earned it: verified on-chain figures, threshold
-  breaches, the delta that matters. Never decorative, never on chrome.
+- `--accent` never colors a numeric value — red numerals read as deficit/loss to a
+  finance-trained eye (collector feedback, jiwa, 2026-07-09). Numbers wear ink, always.
+  Accent is for non-numeric signal: notice bands, section kickers, flow marks in
+  diagrams, thin-market flags. Never decorative, never on chrome.
 
 ## Type
 
@@ -97,6 +99,12 @@ Dark mode (user toggle in the nav; light is the default, stored in
 5. **Annotate at the data** — context (thin-floor flag, the two POD prints, a maturity
    date) sits inline beside the number it explains, tx-linked. Never a legend the
    reader must cross-reference.
+6. **Historical USD converts at the event's ETH price**, source-cited (e.g. Coinbase
+   daily closes averaged over the mint window) — never at today's spot. Spot conversions
+   are only for current values (floors, live volumes).
+7. **Long method text folds** — native `<details class="fold">` with a lowercase mono
+   summary. The number and the one-line claim stay visible; the reconstruction method
+   expands on demand. Fold supporting prose, never the data itself.
 
 ## Register
 

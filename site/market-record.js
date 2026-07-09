@@ -98,6 +98,11 @@
     .triptych svg{display:block;width:100%;height:auto;border:1px solid var(--hairline);background:var(--bg)}
     .triptych figcaption{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:7px;line-height:1.5}
     @media(max-width:720px){.triptych{grid-template-columns:1fr;max-width:340px}}
+    .fold{margin-top:12px;max-width:74ch}
+    .fold summary{font-family:var(--mono);font-size:11.5px;text-transform:lowercase;letter-spacing:.04em;color:var(--muted);cursor:pointer;user-select:none}
+    .fold summary:hover{color:var(--ink)}
+    .fold[open] summary{color:var(--ink);margin-bottom:6px}
+    .fold p{font-size:14px;color:var(--body)}
     html{scroll-behavior:smooth}
     .err{padding:80px 24px;text-align:center;color:var(--muted);font-family:var(--mono)}
     .usd{display:block;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:1px}
@@ -199,7 +204,7 @@
     const gcell = !g.listed ? '<span class="dim">—</span>'
       : g.best ? `<span class="green">${esc(g.best)}</span>`
       : `<span class="dim">listed · 0 offers</span>`;
-    const prim = c.primary ? `<td class="num gold">${fmt(c.primary.proceeds, 2)}${usd(c.primary.proceeds, c.primary.currency || 'ETH')}</td>` : '<td class="num dim">—</td>';
+    const prim = c.primary ? `<td class="num">${fmt(c.primary.proceeds, 2)}${c.primary.fx_at_sale ? `<span class="usd">≈ ${fmtUsd(c.primary.proceeds * c.primary.fx_at_sale.eth_usd)} at sale</span>` : usd(c.primary.proceeds, c.primary.currency || 'ETH')}</td>` : '<td class="num dim">—</td>';
     return `<tr>
       <td><div class="cwrap">${safeUrl(c.image) ? `<a href="${safeUrl(c.url) || '#'}" target="_blank" rel="noopener"><img class="cthumb" src="${safeUrl(c.image)}" alt="${esc(c.name)}" loading="lazy"></a>` : ''}<div>
           <div class="cname"><a href="${safeUrl(c.url) || '#'}" target="_blank" rel="noopener">${esc(c.name)}</a><span class="chip">${esc(c.chain)}</span></div>
@@ -229,6 +234,21 @@
         <div style="text-align:right">${label} ETH${usd(sec + pri, 'ETH')}</div></div>`;
     }).join('');
 
+  // Primary reconstructions — verified figures, USD at the sale window's ETH price
+  // (never today's spot), long method text folded behind a native <details>.
+  const primariesHtml = primaries.map(c => {
+    const fx = c.primary.fx_at_sale;
+    const usdBit = fx
+      ? ` <span style="font-size:15px;font-weight:400;color:var(--muted)">≈ ${fmtUsd(c.primary.proceeds * fx.eth_usd)} · ETH at $${Math.round(fx.eth_usd).toLocaleString('en-US')} (${esc(fx.source)}, mint-window avg)</span>`
+      : (rate('ETH') ? ` <span style="font-size:15px;font-weight:400;color:var(--muted)">≈ ${fmtUsd(c.primary.proceeds * rate('ETH'))}</span>` : '');
+    return `<div class="callout">
+      <div class="kicker">Primary reconstruction · ${esc(c.name)}</div>
+      <div class="big">${fmt(c.primary.proceeds, 2)} ETH${usdBit}</div>
+      <p>${esc(c.primary.paid_mint_txs)} paid mint transactions into the contract, ${esc(c.primary.window)} — ${esc(c.primary.price_range)}.</p>
+      <details class="fold"><summary>method &amp; caveats</summary><p>${esc(c.primary.note)}</p></details>
+    </div>`;
+  }).join('');
+
   // Optional fungible-token section (d.token) — the ERC-20 layer under the collections.
   const t = d.token;
   let tokenBlock = '';
@@ -245,13 +265,13 @@
     }).join('');
     const ck = (label, value) => `<div class="ck"><span>${label}</span><b>${value}</b></div>`;
     tokenBlock = `
-    ${bighead('03', `${esc(t.symbol)} — the token under the works`, `${esc(t.standard)} · verified on-chain ${esc(t.verified)}`, 'pxl')}
+    ${bighead('03', `The ${esc(t.symbol)} ecosystem`, `one token under the works · ${esc(t.standard)} · verified on-chain ${esc(t.verified)}`, 'pxl')}
     <div class="cockpit">
       ${ck('contract', `<a href="https://etherscan.io/token/${esc(t.contract)}" target="_blank" rel="noopener">${short(t.contract)}</a>`)}
       ${ck('standard', `${esc(t.standard)} · ${t.decimals} dec`)}
       ${ck('hard cap', fmt(t.cap, 0))}
       ${ck('minted', fmt(t.total_supply, 0))}
-      ${ck('locked in the art', `<span class="gold">${(lockedTotal / t.total_supply * 100).toFixed(1)}%</span>`)}
+      ${ck('locked in the art', `${(lockedTotal / t.total_supply * 100).toFixed(1)}%`)}
       ${ck('free float', fmt(t.free_float, 0))}
       ${ck('deck mint price', `${t.mint_price_eth} ETH`)}
       ${ck('unminted allowance', fmt(t.deck_allowance_remaining, 0))}
@@ -344,8 +364,13 @@
     </div>
 
     <p class="lede" style="font-size:15px;margin-top:26px">${esc(t.lede)}</p>
+    ${t.next_release ? `<div class="notice-band" style="margin-top:34px">
+      <span class="nb-kicker">${esc(t.next_release.title)}</span>
+      <span>${esc(t.next_release.text)}</span>
+    </div>` : ''}
+    ${primariesHtml}
     <div class="note"><b>Headroom.</b> ${fmt(t.deck_allowance_remaining, 0)} PXL of unminted deck allowance remains on-chain (${t.decks_with_intact_allowance} of 256 decks fully intact at 500,000 each), mintable only by deck owners at ${t.mint_price_eth} ETH per PXL. Beyond the decks, new works can be granted fresh mint allowances up to the ${fmt(t.cap, 0)} hard cap.</div>
-    ${(t.notes || []).length ? `<ul class="plain" style="margin-top:14px">${t.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}
+    ${(t.notes || []).length ? `<details class="fold" style="margin-top:14px"><summary>method notes</summary><ul class="plain" style="margin-top:8px">${t.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></details>` : ''}
 
     ${bighead('04', 'Your PXL book', 'check any wallet — read-only', 'book')}
     <p class="lede" style="font-size:15px;margin-top:0">Enter any Ethereum address or ENS name to see its decks and pods — attached pixels, collection rank, and each deck's <span class="gold">unexercised mint allowance</span>: a standing right to mint fresh PXL at ${t.mint_price_eth}&nbsp;ETH each, exercisable only by the deck owner.</p>
@@ -431,7 +456,7 @@
   const contents = [
     ['#collections', 'collections'],
     ['#flow', 'money flow'],
-    d.token ? ['#pxl', d.token.symbol.toLowerCase()] : null,
+    d.token ? ['#pxl', `the ${d.token.symbol.toLowerCase()} ecosystem`] : null,
     d.token ? ['#book', 'your pxl book'] : null,
     d.editorial ? ['#read', "the desk's read"] : null,
     d.voices && ((d.voices.entries || []).length || d.voices.invite) ? ['#voices', 'collector voices'] : null,
@@ -463,7 +488,7 @@
           <div><span>Tokens</span><b>${fmt(d.collections.reduce((s, c) => s + c.supply, 0), 0)}</b></div>
           <div><span>Holders (gross)</span><b>${fmt(totHolders, 0)}</b></div>
           <div><span>ETH secondary (OpenSea)</span><b>${fmt(totSecondary, 0)} ETH</b>${usd(totSecondary, 'ETH')}</div>
-          ${totPrimary > 0 ? `<div><span>Verified primary</span><b class="gold">${fmt(totPrimary, 2)} ETH</b>${usd(totPrimary, 'ETH')}</div>` : ''}
+          ${totPrimary > 0 ? `<div><span>Verified primary</span><b>${fmt(totPrimary, 2)} ETH</b>${usd(totPrimary, 'ETH')}</div>` : ''}
         </div>
         ${(d.artist_links || []).length ? `<div class="alinks">${d.artist_links.map(l => `<a href="${safeUrl(l.url) || '#'}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>` : ''}
       </div>
@@ -484,11 +509,7 @@
       <div class="legend"><span><i style="background:var(--ink)"></i>OpenSea secondary</span>${totPrimary > 0 ? '<span><i style="background:var(--gold)"></i>Verified on-chain primary</span>' : ''}</div>
     </div>
 
-    ${primaries.map(c => `<div class="callout">
-      <div class="kicker" style="color:var(--gold)">Primary reconstruction · ${esc(c.name)}</div>
-      <div class="big">${fmt(c.primary.proceeds, 2)} ETH${rate('ETH') ? ` <span style="font-size:15px;font-weight:400;color:var(--muted)">≈ ${fmtUsd(c.primary.proceeds * rate('ETH'))}</span>` : ''}</div>
-      <p>${esc(c.primary.paid_mint_txs)} paid mint transactions into the contract, ${esc(c.primary.window)} — ${esc(c.primary.price_range)}. ${esc(c.primary.note)}</p>
-    </div>`).join('')}
+    ${d.token ? '' : primariesHtml}
     ${tokenBlock}
     ${edBlock}
     ${voBlock}

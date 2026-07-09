@@ -97,7 +97,7 @@
       <td><span class="nm"><a href="${esc(c.url || "#")}" target="_blank" rel="noopener">${esc(c.name)}</a></span><span class="fl">${flag}</span><br><span class="sub">${esc(c.chain)} · ${fmt(c.supply, 0)} supply · ${fmt(c.holders, 0)} holders · ${esc(c.mint)}</span></td>
       <td class="n">${floor}</td>
       <td class="n">${fmt(c.secondary_volume?.value)} ${esc(c.secondary_volume?.currency || "")}</td>
-      <td class="n">${c.primary ? `<span class="gold">${fmt(c.primary.proceeds, 2)}</span>` : '<span class="dim">—</span>'}</td>
+      <td class="n">${c.primary ? fmt(c.primary.proceeds, 2) : '<span class="dim">—</span>'}</td>
       <td class="n">${c.volume_30d == null ? "—" : fmt(c.volume_30d, 2)}</td>
       <td class="n">${gcell}</td>
     </tr>`;
@@ -122,7 +122,7 @@
       const w = v => Math.max(v / maxFlow * 100, v > 0 ? 0.5 : 0);
       return `<div class="frow"><div>${esc(c.name)}</div>
         <div class="track"><div class="seg" style="left:0;width:${w(sec)}%;background:var(--ink)"></div>${pri ? `<div class="seg" style="left:${w(sec)}%;width:${w(pri)}%;background:var(--accent)"></div>` : ""}</div>
-        <div class="v">${fmt(sec + pri)}${pri ? ` <span class="gold">(${fmt(pri)}✓)</span>` : ""}</div></div>`;
+        <div class="v">${fmt(sec + pri)}${pri ? ` <span class="dim">(${fmt(pri)}✓)</span>` : ""}</div></div>`;
     }).join("");
 
   const podFlag = (d.collections.find(c => c.name === "PXL POD")?.flags || [])[0] || "";
@@ -141,7 +141,7 @@
       <div><span>tokens</span><b>${fmt(d.collections.reduce((s, c) => s + c.supply, 0), 0)}</b></div>
       <div><span>holders (gross)</span><b>${fmt(totHolders, 0)}</b></div>
       <div><span>eth secondary</span><b>${fmt(totSecondary, 0)} ETH</b></div>
-      <div><span>verified primary</span><b class="gold">${fmt(totPrimary, 2)} ETH</b></div>
+      <div><span>verified primary</span><b>${fmt(totPrimary, 2)} ETH</b></div>
       <div><span>pxl minted</span><b>${m(t.total_supply)}</b></div>
       <div><span>locked in the art</span><b>${t.total_supply ? (lockedTotal / t.total_supply * 100).toFixed(1) : "—"}%</b></div>
     </div>
@@ -159,7 +159,7 @@
           <div class="ck"><span>contract</span><b><a href="https://etherscan.io/token/${esc(t.contract)}" target="_blank" rel="noopener">${esc((t.contract || "").slice(0, 6))}…${esc((t.contract || "").slice(-4))}</a></b></div>
           <div class="ck"><span>hard cap</span><b>${m(t.cap)}</b></div>
           <div class="ck"><span>minted</span><b>${m(t.total_supply)}</b></div>
-          <div class="ck"><span>free float</span><b class="gold">${m(t.free_float)}</b></div>
+          <div class="ck"><span>free float</span><b>${m(t.free_float)}</b></div>
           <div class="ck"><span>deck mint price</span><b>${t.mint_price_eth} ETH</b></div>
           <div class="ck"><span>unminted allowance</span><b>${m(t.deck_allowance_remaining)}</b></div>
         </div>
