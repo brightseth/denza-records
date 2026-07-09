@@ -5,7 +5,12 @@
   "publisher": "DENZA",
   "lede": "Four Ethereum collections — from Fidenza, the defining Art Blocks release of 2021, to the collector-driven QQL system built with Dandelion Wist.",
   "metric_note": "volume figures are OpenSea marketplace volume only — they exclude primary mint proceeds, sales on other venues (Archipelago, Blur, auction houses), and off-marketplace transfers. For Fidenza in particular, which has significant auction-house and alternative-venue history, the true secondary total is materially higher.",
-  "fx": { "eth_usd": 1759.26, "xtz_usd": 0.244476, "as_of": "2026-07-03", "source": "CoinGecko" },
+  "fx": {
+    "eth_usd": 1759.26,
+    "xtz_usd": 0.244476,
+    "as_of": "2026-07-03",
+    "source": "CoinGecko"
+  },
   "collections": [
     {
       "name": "Fidenza",
@@ -15,10 +20,18 @@
       "supply": 999,
       "holders": 514,
       "url": "https://opensea.io/collection/fidenza-by-tyler-hobbs",
-      "floor": { "value": 18.59, "currency": "ETH" },
-      "secondary_volume": { "value": 69553.1, "currency": "ETH" },
+      "floor": {
+        "value": 18.59,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 69553.1,
+        "currency": "ETH"
+      },
       "volume_30d": 158.68,
-      "flags": ["Art Blocks Curated 78; shares the flagship core contract"]
+      "flags": [
+        "Art Blocks Curated 78; shares the flagship core contract"
+      ]
     },
     {
       "name": "Incomplete Control",
@@ -28,10 +41,18 @@
       "supply": 100,
       "holders": 57,
       "url": "https://opensea.io/collection/incomplete-control-by-tyler-hobbs",
-      "floor": { "value": 33.0, "currency": "ETH" },
-      "secondary_volume": { "value": 1443.4, "currency": "ETH" },
+      "floor": {
+        "value": 33.0,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 1443.4,
+        "currency": "ETH"
+      },
       "volume_30d": 0,
-      "flags": ["Art Blocks Curated; 100 editions"]
+      "flags": [
+        "Art Blocks Curated; 100 editions"
+      ]
     },
     {
       "name": "QQL Mint Pass",
@@ -41,10 +62,18 @@
       "supply": 930,
       "holders": 289,
       "url": "https://opensea.io/collection/qql-mint-pass",
-      "floor": { "value": 1.98, "currency": "ETH" },
-      "secondary_volume": { "value": 10897.1, "currency": "ETH" },
+      "floor": {
+        "value": 1.98,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 10897.1,
+        "currency": "ETH"
+      },
       "volume_30d": 2.71,
-      "flags": ["supply shrinks as passes are redeemed into QQL artworks"]
+      "flags": [
+        "supply shrinks as passes are redeemed into QQL artworks"
+      ]
     },
     {
       "name": "QQL",
@@ -54,10 +83,18 @@
       "supply": 342,
       "holders": 181,
       "url": "https://opensea.io/collection/qql",
-      "floor": { "value": 0.75, "currency": "ETH" },
-      "secondary_volume": { "value": 381.4, "currency": "ETH" },
+      "floor": {
+        "value": 0.75,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 381.4,
+        "currency": "ETH"
+      },
       "volume_30d": 0,
-      "flags": ["open-ended: minted by redeeming QQL Mint Passes"]
+      "flags": [
+        "open-ended: minted by redeeming QQL Mint Passes"
+      ]
     }
   ],
   "method": [
@@ -72,5 +109,10 @@
     "QQL and QQL Mint Pass are complementary, not additive: each QQL artwork is minted by burning a pass, so the pass supply (930) shrinks as the artwork supply (342) grows against the original 999.",
     "Holder counts are per-collection and gross — one wallet holding in multiple collections is counted once per collection.",
     "Gondi lending terms are not included in this snapshot."
-  ]
+  ],
+  "frontispiece": {
+    "image": "https://media.artblocks.io/78000998.png",
+    "caption": "Fidenza #998 — Tyler Hobbs, Art Blocks, 2021.",
+    "url": "https://opensea.io/assets/ethereum/0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270/78000998"
+  }
 }
