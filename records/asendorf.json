@@ -55,7 +55,7 @@
       "Free float = minted supply minus PXL held by the two art contracts, i.e. PXL sitting loose in wallets."
     ],
     "next_release": {
-      "title": "next release — PXL NET · opens friday, july 11 at NODE, palo alto",
+      "title": "next release — PXL NET · opens saturday, july 11 at NODE, palo alto",
       "text": "PXL NET opens July 11, 2026 at NODE, Palo Alto (nodefoundation.com). Artist-stated mechanics (Discord, 2026-07-04–08; contract not yet deployed — to be verified on-chain): the net holds up to 128,000,000 PXL; visitors buy PXL at the exhibition from $8 (4,096 PXL) to $2,560 (1,280,000 PXL) — a flat ~$0.002 per PXL, roughly the deck-mint parity in USD; sale proceeds remain at NODE as a fundraiser, with 5% donated to panke.gallery, Berlin. Participation is in-person only (RFID cards + a NODE app smart wallet; each buyer has their own wallet, NODE holds a spend approval). Adding PXL to the net issues a generative receipt NFT ('PXL NODE', 100–31,250 total, 24 properties across shapes/animations/tweens, randomized on-chain). Receipts are immutable — no deposits or withdrawals — but can be burned through the contract to redeem the underlying PXL: the burn destroys the artwork and returns the tokens, a redemption right, not a supply sink. Token 0 displays all PXL in the net without owning them."
     }
   },
@@ -162,7 +162,7 @@
         "paid_mint_txs": 126,
         "window": "2026-03-07 → 2026-03-08",
         "price_range": "1 ETH + attached PXL",
-        "note": "Verified on-chain via Etherscan — the contract-paid portion only. Every one of the 126 paid mints priced identically: exactly 1 ETH plus the attached PXL at the fixed deck rate (0.000001 ETH/PXL), with zero deviation. The artist confirms this structure — “240 x 1 eth plus Pxl” — and reports total primary was roughly 380 ETH including OTC and gallery sales (Kim Asendorf, 2026-07-06). The 240 pods at 1 ETH beyond the 126 settled on-contract were delivered off-contract: the buyer pays the artist's wallet and the pod is owner-minted straight to them. DENZA's wallet-flow reconstruction corroborates the total — direct payments into artist-controlled wallets during the mint window, a substantial share matched one-to-one to owner-minted or artist-transferred pod deliveries, plus stablecoin settlements. Among the off-contract sales were 15 Duo Pods placed through Nguyen Wahed gallery at $15,000 each (artist-reported).",
+        "note": "Verified on-chain via Etherscan — the contract-paid portion only. Every one of the 126 paid mints priced identically: exactly 1 ETH plus the attached PXL at the fixed deck rate (0.000001 ETH/PXL), with zero deviation. The artist confirms this structure — “240 x 1 eth plus Pxl” — and reports total primary was roughly 380 ETH including OTC and gallery sales (Kim Asendorf, 2026-07-06). Of the 240 pods sold at 1 ETH, the 126 above settled on-contract; the remaining 114 were delivered off-contract: the buyer pays the artist's wallet and the pod is owner-minted straight to them. DENZA's wallet-flow reconstruction corroborates the total — direct payments into artist-controlled wallets during the mint window, a substantial share matched one-to-one to owner-minted or artist-transferred pod deliveries, plus stablecoin settlements. Among the off-contract sales were 15 Duo Pods placed through Nguyen Wahed gallery at $15,000 each (artist-reported).",
         "fx_at_sale": {
           "eth_usd": 1953.27,
           "window": "2026-03-07 → 2026-03-08",
@@ -535,7 +535,7 @@
     "Thin-floor collections (PXL POD, Monogrid) should be treated as indicative, not established."
   ],
   "notice": {
-    "kicker": "pxl net — opens friday, july 11 at NODE, palo alto",
+    "kicker": "pxl net — opens saturday, july 11 at NODE, palo alto",
     "text": "Pixels sold in person from $8 (4,096 PXL) to $2,560 (1,280,000) — proceeds fund NODE, 5% to panke.gallery. Receipts are generative NFTs that burn to redeem the underlying PXL. Artist-stated; this record verifies the contract on-chain once it's live.",
     "href": "https://nodefoundation.com/program/pxl",
     "link_label": "nodefoundation.com/program/pxl"
@@ -554,5 +554,6 @@
     "sub": "why people hold this work — in their own words, credited",
     "invite": "Answer in the ASDF Discord or through the wishlist box below: what's your favorite work of Kim's that you own, and why that one? Selected answers appear here, credited (or anonymous if you prefer).",
     "entries": []
-  }
+  },
+  "secondary_usd_note": "Secondary volume shown in ETH only — historical all-time totals can't be honestly spot-converted; per-collection primaries convert at their mint-window ETH price."
 }

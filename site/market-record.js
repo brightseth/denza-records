@@ -174,6 +174,9 @@
   const eth = d.collections.filter(c => c.floor?.currency === 'ETH');
   const totSecondary = eth.reduce((s, c) => s + (c.secondary_volume?.value || 0), 0);
   const totPrimary = eth.reduce((s, c) => s + (c.primary?.proceeds || 0), 0);
+  // Aggregate primary USD sums each mint at ITS window's ETH price, never today's spot.
+  const totPrimaryUsd = eth.reduce((s, c) => c.primary?.fx_at_sale ? s + c.primary.proceeds * c.primary.fx_at_sale.eth_usd : s, 0);
+  const allPrimHaveFx = eth.filter(c => c.primary).every(c => c.primary.fx_at_sale);
   const totHolders = d.collections.reduce((s, c) => s + (c.holders || 0), 0);
   const primaries = d.collections.filter(c => c.primary);
 
@@ -181,7 +184,7 @@
     <a class="dn-brand" href="/">DENZA</a>
     <button class="dn-toggle" aria-label="Menu" onclick="document.getElementById('denzaNav').classList.toggle('open')">☰</button>
     <div class="dn-links">
-      <a href="/${SLUG}.html">Collection</a>
+      <a href="#collections">Collection</a>
       ${d.token ? '<a href="#book">PXL Book</a>' : ''}
       ${SLUG === 'asendorf' ? '<a href="/kim/terminal">Terminal</a>' : ''}
       <button type="button" class="dn-theme" id="dnTheme" aria-label="Toggle color scheme">${savedTheme === "dark" ? "light" : "dark"}</button>
@@ -487,8 +490,8 @@
           <div><span>Chains</span><b>${[...new Set(d.collections.map(c => c.chain))].length}</b></div>
           <div><span>Tokens</span><b>${fmt(d.collections.reduce((s, c) => s + c.supply, 0), 0)}</b></div>
           <div><span>Holders (gross)</span><b>${fmt(totHolders, 0)}</b></div>
-          <div><span>ETH secondary (OpenSea)</span><b>${fmt(totSecondary, 0)} ETH</b>${usd(totSecondary, 'ETH')}</div>
-          ${totPrimary > 0 ? `<div><span>Verified primary</span><b>${fmt(totPrimary, 2)} ETH</b>${usd(totPrimary, 'ETH')}</div>` : ''}
+          <div><span>ETH secondary (OpenSea)</span><b>${fmt(totSecondary, 0)} ETH</b></div>
+          ${totPrimary > 0 ? `<div><span>Verified primary</span><b>${fmt(totPrimary, 2)} ETH</b>${allPrimHaveFx && totPrimaryUsd ? `<span class="usd">≈ ${fmtUsd(totPrimaryUsd)} at sale</span>` : ''}</div>` : ''}
         </div>
         ${(d.artist_links || []).length ? `<div class="alinks">${d.artist_links.map(l => `<a href="${safeUrl(l.url) || '#'}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>` : ''}
       </div>
