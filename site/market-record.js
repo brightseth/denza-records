@@ -83,6 +83,20 @@
     .contents a{color:var(--muted);text-decoration:underline;text-decoration-color:var(--hairline);text-underline-offset:3px;text-transform:lowercase}
     .contents a:hover{color:var(--ink);text-decoration-color:var(--ink)}
     .contents .dot{color:var(--faint)}
+    .cworks{display:flex;gap:6px;margin-top:8px}
+    .cworks a{display:block;line-height:0}
+    .cworks img{width:56px;height:56px;object-fit:cover;border:1px solid var(--hairline);background:var(--wash);image-rendering:pixelated;display:block;transition:border-color .15s}
+    .cworks a:hover img{border-color:var(--ink)}
+    .voice{max-width:74ch;margin:26px 0;padding-left:18px;border-left:2px solid var(--hairline)}
+    .voice p{font-size:16px;color:var(--ink);line-height:1.6}
+    .voice cite{display:block;font-style:normal;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:8px}
+    .diagwrap{overflow-x:auto;margin-top:6px}
+    .pxlmap{display:block;min-width:820px;width:100%;height:auto}
+    .triptych{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:6px}
+    .triptych figure{margin:0}
+    .triptych svg{display:block;width:100%;height:auto;border:1px solid var(--hairline);background:var(--bg)}
+    .triptych figcaption{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:7px;line-height:1.5}
+    @media(max-width:720px){.triptych{grid-template-columns:1fr;max-width:340px}}
     html{scroll-behavior:smooth}
     .err{padding:80px 24px;text-align:center;color:var(--muted);font-family:var(--mono)}
     .usd{display:block;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:1px}
@@ -139,6 +153,7 @@
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   // URLs from the record JSON only ever land in href/src if http(s) or site-relative.
   const safeUrl = u => /^(https?:\/\/|\/)/i.test(String(u ?? '')) ? esc(u) : '';
+  const fmtM = n => n == null ? '—' : (n >= 1e6 ? (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M' : Number(n).toLocaleString('en-US'));
   const fmt = (n, dp = 1) => n == null ? '—' : Number(n).toLocaleString('en-US', { maximumFractionDigits: dp });
   const short = a => a.length > 20 ? `${a.slice(0, 6)}…${a.slice(-4)}` : a;
   const scanUrl = c => c.chain === 'Ethereum' ? `https://etherscan.io/address/${esc(c.contract)}`
@@ -176,6 +191,10 @@
     ).join(' · ');
     const flagLine = (c.flags || []).length || sales
       ? `<div class="cflag">${(c.flags || []).map(esc).join(' ')}${sales ? ` ${sales}.` : ''}</div>` : '';
+    // A strip of representative works — the record reads as a catalogue, not a spreadsheet.
+    const worksStrip = (c.works || []).length ? `<div class="cworks">${c.works.map(w =>
+      safeUrl(w.image) ? `<a href="${safeUrl(w.url) || '#'}" target="_blank" rel="noopener" title="${esc(w.token)}"><img src="${safeUrl(w.image)}" alt="${esc(w.token)}" loading="lazy"></a>` : ''
+    ).join('')}</div>` : '';
     const gcell = !g.listed ? '<span class="dim">—</span>'
       : g.best ? `<span class="green">${esc(g.best)}</span>`
       : `<span class="dim">listed · 0 offers</span>`;
@@ -183,7 +202,7 @@
     return `<tr>
       <td><div class="cwrap">${safeUrl(c.image) ? `<a href="${safeUrl(c.url) || '#'}" target="_blank" rel="noopener"><img class="cthumb" src="${safeUrl(c.image)}" alt="${esc(c.name)}" loading="lazy"></a>` : ''}<div>
           <div class="cname"><a href="${safeUrl(c.url) || '#'}" target="_blank" rel="noopener">${esc(c.name)}</a><span class="chip">${esc(c.chain)}</span></div>
-          <div class="caddr"><a href="${scanUrl(c)}" target="_blank" rel="noopener">${short(c.contract)}</a> · minted ${esc(c.mint)}</div>${flagLine}</div></div></td>
+          <div class="caddr"><a href="${scanUrl(c)}" target="_blank" rel="noopener">${short(c.contract)}</a> · minted ${esc(c.mint)}</div>${flagLine}${worksStrip}</div></div></td>
       <td class="num">${fmt(c.supply, 0)}</td>
       <td class="num">${fmt(c.holders, 0)}</td>
       <td class="num">${c.floor ? `${fmt(c.floor.value, 2)} ${esc(c.floor.currency)}${usd(c.floor.value, c.floor.currency)}` : '<span class="dim">—</span>'}</td>
@@ -240,6 +259,89 @@
       <div class="bar-row"><div>Minted supply</div><div class="bar-track">${segHtml}</div><div style="text-align:right">${fmt(t.total_supply, 0)} PXL</div></div>
       <div class="legend">${segs.map(s => `<span><i style="background:${s.color}"></i>${esc(s.label)} · ${fmt(s.v, 0)}</span>`).join('')}</div>
     </div>
+    <h2 class="sec" style="margin-top:44px">how pxl moves</h2>
+    <div class="diagwrap"><svg class="pxlmap" viewBox="0 0 960 330" role="img" aria-label="How PXL moves between the artist, decks, the loose float and PXL NET">
+      <defs>
+        <marker id="mIn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker>
+        <marker id="mAc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker>
+      </defs>
+      <g font-family="ui-monospace,'SF Mono',Menlo,monospace">
+        <!-- main flow nodes -->
+        <rect x="10" y="52" width="130" height="64" fill="none" stroke="var(--ink)"/>
+        <text x="75" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">ARTIST</text>
+        <text x="75" y="96" text-anchor="middle" font-size="10" fill="var(--muted)">${fmtM(t.cap - t.total_supply - t.deck_allowance_remaining)} ungranted</text>
+        <rect x="205" y="52" width="180" height="64" fill="none" stroke="var(--ink)"/>
+        <text x="295" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">DECK ALLOWANCE</text>
+        <text x="295" y="96" text-anchor="middle" font-size="10" fill="var(--muted)">${fmtM(t.deck_allowance_remaining)} · deck owners only</text>
+        <rect x="450" y="52" width="145" height="64" fill="none" stroke="var(--ink)"/>
+        <text x="522" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">LOOSE PXL</text>
+        <text x="522" y="96" text-anchor="middle" font-size="10" fill="var(--muted)">${fmtM(t.free_float)} · no venue</text>
+        <rect x="660" y="52" width="160" height="64" fill="none" stroke="var(--ink)"/>
+        <text x="740" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">PXL NET</text>
+        <text x="740" y="96" text-anchor="middle" font-size="10" fill="var(--muted)">\u2264128M \u00b7 token 0</text>
+        <!-- flows -->
+        <line x1="140" y1="84" x2="199" y2="84" stroke="var(--ink)" marker-end="url(#mIn)"/>
+        <text x="170" y="74" text-anchor="middle" font-size="9.5" fill="var(--muted)">grants</text>
+        <line x1="385" y1="84" x2="444" y2="84" stroke="var(--ink)" marker-end="url(#mIn)"/>
+        <text x="415" y="34" text-anchor="middle" font-size="9.5" fill="var(--muted)">mint</text>
+        <text x="415" y="46" text-anchor="middle" font-size="9.5" fill="var(--muted)">${t.mint_price_eth} ETH</text>
+        <line x1="595" y1="84" x2="654" y2="84" stroke="var(--ink)" marker-end="url(#mIn)"/>
+        <text x="625" y="34" text-anchor="middle" font-size="9.5" fill="var(--muted)">add · in person</text>
+        <text x="625" y="46" text-anchor="middle" font-size="9.5" fill="var(--accent)">$8–$2,560 → NODE</text>
+        <!-- receipt + burn-redeem loop -->
+        <rect x="660" y="216" width="160" height="56" fill="none" stroke="var(--hairline)"/>
+        <text x="740" y="239" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">RECEIPT NFT</text>
+        <text x="740" y="255" text-anchor="middle" font-size="10" fill="var(--muted)">100–31,250 · generative</text>
+        <line x1="740" y1="116" x2="740" y2="210" stroke="var(--ink)" marker-end="url(#mIn)"/>
+        <text x="748" y="166" font-size="9.5" fill="var(--muted)">issues</text>
+        <path d="M660 244 L522 244 L522 122" fill="none" stroke="var(--accent)" stroke-dasharray="4 4" marker-end="url(#mAc)"/>
+        <text x="575" y="232" text-anchor="middle" font-size="9.5" fill="var(--accent)">burn = redeem · pxl returned</text>
+        <!-- sealed reservoirs -->
+        <rect x="70" y="216" width="180" height="56" fill="var(--wash)" stroke="var(--hairline)"/>
+        <text x="160" y="239" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">IN 256 DECKS</text>
+        <text x="160" y="255" text-anchor="middle" font-size="10" fill="var(--muted)">${fmtM(t.locked?.[0]?.amount)} attached · sealed</text>
+        <rect x="270" y="216" width="180" height="56" fill="var(--wash)" stroke="var(--hairline)"/>
+        <text x="360" y="239" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">IN 256 PODS</text>
+        <text x="360" y="255" text-anchor="middle" font-size="10" fill="var(--muted)">${fmtM(t.locked?.[1]?.amount)} attached · sealed</text>
+        <text x="260" y="296" font-size="10" fill="var(--faint)">attached pixels travel with their deck or pod — they never re-enter the float while the work exists</text>
+        <text x="10" y="322" font-size="10" fill="var(--faint)">quantities on-chain ${esc(t.verified)} · NET figures artist-stated until the contract is live · money flows dashed, in terracotta</text>
+      </g>
+    </svg></div>
+
+    <h2 class="sec" style="margin-top:36px">the three containers</h2>
+    <div class="triptych">
+      <figure>
+        <svg viewBox="0 0 160 120" aria-label="PXL DEX — 256 decks">
+          ${Array.from({length: 64}, (_, i) => `<rect x="${12 + (i % 16) * 8.6}" y="${26 + Math.floor(i / 16) * 8.6}" width="6" height="6" fill="none" stroke="var(--ink)" stroke-width="0.8"/>`).join('')}
+          <text x="12" y="14" font-size="10" font-weight="700" fill="var(--ink)" font-family="ui-monospace,Menlo,monospace">PXL DEX · 2025</text>
+          <text x="12" y="80" font-size="8.5" fill="var(--muted)" font-family="ui-monospace,Menlo,monospace">256 decks — attached PXL</text>
+          <text x="12" y="92" font-size="8.5" fill="var(--muted)" font-family="ui-monospace,Menlo,monospace">+ mint allowance:</text>
+          <text x="12" y="104" font-size="8.5" fill="var(--accent)" font-family="ui-monospace,Menlo,monospace">the only primary market</text>
+        </svg>
+        <figcaption>${fmtM(t.locked?.[0]?.amount)} attached · ${fmtM(t.deck_allowance_remaining)} still mintable</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 160 120" aria-label="PXL POD — 256 pods">
+          ${Array.from({length: 64}, (_, i) => `<circle cx="${15 + (i % 16) * 8.6}" cy="${29 + Math.floor(i / 16) * 8.6}" r="3" fill="none" stroke="var(--ink)" stroke-width="0.8"/>`).join('')}
+          <text x="12" y="14" font-size="10" font-weight="700" fill="var(--ink)" font-family="ui-monospace,Menlo,monospace">PXL POD · 2026</text>
+          <text x="12" y="80" font-size="8.5" fill="var(--muted)" font-family="ui-monospace,Menlo,monospace">256 pods — pixels sealed,</text>
+          <text x="12" y="92" font-size="8.5" fill="var(--muted)" font-family="ui-monospace,Menlo,monospace">no allowance, no exit:</text>
+          <text x="12" y="104" font-size="8.5" fill="var(--muted)" font-family="ui-monospace,Menlo,monospace">pure reservoir</text>
+        </svg>
+        <figcaption>${fmtM(t.locked?.[1]?.amount)} attached — the deepest lock</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 160 120" aria-label="PXL NET — token 0 and receipts">
+          ${Array.from({length: 14}, (_, i) => { const a = i / 14 * Math.PI * 2; const cx = 80 + Math.cos(a) * 34, cy = 46 + Math.sin(a) * 26; return `<line x1="80" y1="46" x2="${cx.toFixed(1)}" y2="${cy.toFixed(1)}" stroke="var(--hairline)" stroke-width="0.8"/><circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="2.6" fill="none" stroke="var(--ink)" stroke-width="0.8"/>`; }).join('')}
+          <rect x="74" y="40" width="12" height="12" fill="var(--accent)"/>
+          <text x="12" y="14" font-size="10" font-weight="700" fill="var(--ink)" font-family="ui-monospace,Menlo,monospace">PXL NET · opens 07-11</text>
+          <text x="12" y="92" font-size="8.5" fill="var(--muted)" font-family="ui-monospace,Menlo,monospace">token 0 shows the net;</text>
+          <text x="12" y="104" font-size="8.5" fill="var(--muted)" font-family="ui-monospace,Menlo,monospace">receipts burn to redeem</text>
+        </svg>
+        <figcaption>holds ≤128M · 100–31,250 receipts · the only door back to loose</figcaption>
+      </figure>
+    </div>
+
     <p class="lede" style="font-size:15px;margin-top:26px">${esc(t.lede)}</p>
     <div class="note"><b>Headroom.</b> ${fmt(t.deck_allowance_remaining, 0)} PXL of unminted deck allowance remains on-chain (${t.decks_with_intact_allowance} of 256 decks fully intact at 500,000 each), mintable only by deck owners at ${t.mint_price_eth} ETH per PXL. Beyond the decks, new works can be granted fresh mint allowances up to the ${fmt(t.cap, 0)} hard cap.</div>
     ${(t.notes || []).length ? `<ul class="plain" style="margin-top:14px">${t.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}
@@ -291,10 +393,24 @@
 
   // Optional feedback/wishlist section (d.feedback) — a one-way note to the desk.
   // Nothing stored server-side; the note is forwarded once and dropped.
+  // Collector voices — quotes from the community, credited; renders the invite even when empty.
+  const vo = d.voices;
+  let voBlock = '';
+  if (vo && ((vo.entries || []).length || vo.invite)) {
+    const voNum = String(3 + (t ? 2 : 0) + (ed ? 1 : 0)).padStart(2, '0');
+    voBlock = `
+    ${bighead(voNum, esc(vo.title || 'Collector voices'), esc(vo.sub || ''), 'voices')}
+    ${(vo.entries || []).map(v => `<blockquote class="voice">
+      <p>${esc(v.quote)}</p>
+      <cite>— ${esc(v.name || 'anonymous')}${v.detail ? `, ${esc(v.detail)}` : ''}${v.date ? ` · ${esc(v.date)}` : ''}</cite>
+    </blockquote>`).join('')}
+    ${vo.invite ? `<div class="note">${esc(vo.invite)}</div>` : ''}`;
+  }
+
   const fb = d.feedback;
   let fbBlock = '';
   if (fb) {
-    const fbNum = String(3 + (t ? 2 : 0) + (ed ? 1 : 0)).padStart(2, '0');
+    const fbNum = String(3 + (t ? 2 : 0) + (ed ? 1 : 0) + (vo && ((vo.entries || []).length || vo.invite) ? 1 : 0)).padStart(2, '0');
     fbBlock = `
     ${bighead(fbNum, esc(fb.title || 'Wishlist'), esc(fb.sub || ''), 'wishlist')}
     ${fb.prompt ? `<p class="lede" style="font-size:15px;margin-top:0">${esc(fb.prompt)}</p>` : ''}
@@ -317,6 +433,7 @@
     d.token ? ['#pxl', d.token.symbol.toLowerCase()] : null,
     d.token ? ['#book', 'your pxl book'] : null,
     d.editorial ? ['#read', "the desk's read"] : null,
+    d.voices && ((d.voices.entries || []).length || d.voices.invite) ? ['#voices', 'collector voices'] : null,
     d.feedback ? ['#wishlist', 'wishlist'] : null,
   ].filter(Boolean);
 
@@ -373,6 +490,7 @@
     </div>`).join('')}
     ${tokenBlock}
     ${edBlock}
+    ${voBlock}
     ${fbBlock}
 
     <h2 class="sec">Method</h2>

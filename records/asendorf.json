@@ -161,7 +161,29 @@
         "price_range": "1 ETH + attached PXL",
         "note": "Verified on-chain via Etherscan — the contract-paid portion only. Every one of the 126 paid mints priced identically: exactly 1 ETH plus the attached PXL at the fixed deck rate (0.000001 ETH/PXL), with zero deviation. The artist confirms this structure — “240 x 1 eth plus Pxl” — and reports total primary was roughly 380 ETH including OTC and gallery sales (Kim Asendorf, 2026-07-06). The 240 pods at 1 ETH beyond the 126 settled on-contract were delivered off-contract: the buyer pays the artist's wallet and the pod is owner-minted straight to them. DENZA's wallet-flow reconstruction corroborates the total — direct payments into artist-controlled wallets during the mint window, a substantial share matched one-to-one to owner-minted or artist-transferred pod deliveries, plus stablecoin settlements. Among the off-contract sales were 15 Duo Pods placed through Nguyen Wahed gallery at $15,000 each (artist-reported)."
       },
-      "image": "https://raw2.seadn.io/collection/pxl-pod/image_type_logo/ae2acc4f1db462a3c538e940c336e2/32ae2acc4f1db462a3c538e940c336e2.svg"
+      "image": "https://raw2.seadn.io/collection/pxl-pod/image_type_logo/ae2acc4f1db462a3c538e940c336e2/32ae2acc4f1db462a3c538e940c336e2.svg",
+      "works": [
+        {
+          "token": "Pixel Pod 79",
+          "image": "https://raw2.seadn.io/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/fbe1730aea839399c94160589a77c6/1ffbe1730aea839399c94160589a77c6.svg",
+          "url": "https://opensea.io/assets/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/79"
+        },
+        {
+          "token": "Pixel Pod 32",
+          "image": "https://raw2.seadn.io/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/6e42856e355d823bff168fdc020b24/b26e42856e355d823bff168fdc020b24.svg",
+          "url": "https://opensea.io/assets/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/32"
+        },
+        {
+          "token": "Pixel Pod 30",
+          "image": "https://raw2.seadn.io/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/9c5dc0fa43427cc1caa6d38c86c8d7/b29c5dc0fa43427cc1caa6d38c86c8d7.svg",
+          "url": "https://opensea.io/assets/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/30"
+        },
+        {
+          "token": "Pixel Pod 58",
+          "image": "https://raw2.seadn.io/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/d055cf0eccc8ef84038114e4bbed07/0ad055cf0eccc8ef84038114e4bbed07.svg",
+          "url": "https://opensea.io/assets/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/58"
+        }
+      ]
     },
     {
       "name": "PXL DEX",
@@ -194,7 +216,29 @@
         "price_range": "0.5–1 ETH (median 1)",
         "note": "Complete primary — all 256 tokens accounted for on-chain (243 paid + 13 artist/allowlist mints); verified via Etherscan reconciled against ERC-721 mint events."
       },
-      "image": "https://raw2.seadn.io/ethereum/7680583beca5447eb61fa682ee406bf5/4e1369f73a17a1c6700b5c3eee6851/e54e1369f73a17a1c6700b5c3eee6851.svg"
+      "image": "https://raw2.seadn.io/ethereum/7680583beca5447eb61fa682ee406bf5/4e1369f73a17a1c6700b5c3eee6851/e54e1369f73a17a1c6700b5c3eee6851.svg",
+      "works": [
+        {
+          "token": "Pixel Deck 98",
+          "image": "https://raw2.seadn.io/ethereum/0x81345761670fc8b90665466a94c196e26b92ecfb/4158be20ccb1e3cd3e14daa8fedbd2/554158be20ccb1e3cd3e14daa8fedbd2.svg",
+          "url": "https://opensea.io/assets/ethereum/0x81345761670fc8b90665466a94c196e26b92ecfb/98"
+        },
+        {
+          "token": "Pixel Deck 74",
+          "image": "https://raw2.seadn.io/ethereum/0x81345761670fc8b90665466a94c196e26b92ecfb/3a833f11be72efec4b8d8a4fd4f049/e73a833f11be72efec4b8d8a4fd4f049.svg",
+          "url": "https://opensea.io/assets/ethereum/0x81345761670fc8b90665466a94c196e26b92ecfb/74"
+        },
+        {
+          "token": "Pixel Deck 139",
+          "image": "https://raw2.seadn.io/ethereum/0x81345761670fc8b90665466a94c196e26b92ecfb/7c594ad3f2ae2bb0080e2ffa44da56/e87c594ad3f2ae2bb0080e2ffa44da56.svg",
+          "url": "https://opensea.io/assets/ethereum/0x81345761670fc8b90665466a94c196e26b92ecfb/139"
+        },
+        {
+          "token": "Pixel Deck 134",
+          "image": "https://raw2.seadn.io/ethereum/0x81345761670fc8b90665466a94c196e26b92ecfb/c5e99930c2b283b434f2a920c16799/96c5e99930c2b283b434f2a920c16799.svg",
+          "url": "https://opensea.io/assets/ethereum/0x81345761670fc8b90665466a94c196e26b92ecfb/134"
+        }
+      ]
     },
     {
       "name": "X0X",
@@ -219,7 +263,29 @@
         "active_offers": 3,
         "best": "600 USDC @ 5% / 30d"
       },
-      "image": "https://i2c.seadn.io/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/be46d2873754ed1e17da4ab899fc7e9c.png"
+      "image": "https://i2c.seadn.io/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/be46d2873754ed1e17da4ab899fc7e9c.png",
+      "works": [
+        {
+          "token": "X0X949",
+          "image": "https://i2c.seadn.io/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/e080c4f8883694cab99c70231d1d33/8fe080c4f8883694cab99c70231d1d33.png",
+          "url": "https://opensea.io/assets/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/949"
+        },
+        {
+          "token": "X0X914",
+          "image": "https://i2c.seadn.io/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/0f5296e3c9bf9bf5e0767fea04844c/ce0f5296e3c9bf9bf5e0767fea04844c.png",
+          "url": "https://opensea.io/assets/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/914"
+        },
+        {
+          "token": "X0X775",
+          "image": "https://i2c.seadn.io/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/9ccbe950dd046c2d781a7a839c80a715.png",
+          "url": "https://opensea.io/assets/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/775"
+        },
+        {
+          "token": "X0X752",
+          "image": "https://i2c.seadn.io/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/ce085c80ea66439907c413d56017f748.png",
+          "url": "https://opensea.io/assets/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/752"
+        }
+      ]
     },
     {
       "name": "Alternate",
@@ -244,7 +310,29 @@
         "active_offers": 0,
         "best": null
       },
-      "image": "https://i2c.seadn.io/ethereum/40ca260724af4c18bb34ad29ed87a51a/2bad0d9aa668f7c6135cfdd7e51d55/352bad0d9aa668f7c6135cfdd7e51d55.png"
+      "image": "https://i2c.seadn.io/ethereum/40ca260724af4c18bb34ad29ed87a51a/2bad0d9aa668f7c6135cfdd7e51d55/352bad0d9aa668f7c6135cfdd7e51d55.png",
+      "works": [
+        {
+          "token": "Alternate 179v1",
+          "image": "https://raw2.seadn.io/ethereum/0x8bd8eab9655573165fdafa404e72dc5e769a83fa/31232f98f18ae39a90f9e1c1f44735/7f31232f98f18ae39a90f9e1c1f44735.svg",
+          "url": "https://opensea.io/assets/ethereum/0x8bd8eab9655573165fdafa404e72dc5e769a83fa/179"
+        },
+        {
+          "token": "Alternate 191v1",
+          "image": "https://raw2.seadn.io/ethereum/0x8bd8eab9655573165fdafa404e72dc5e769a83fa/e9f29a4c50a98c94b998ba4a18fd5c/efe9f29a4c50a98c94b998ba4a18fd5c.svg",
+          "url": "https://opensea.io/assets/ethereum/0x8bd8eab9655573165fdafa404e72dc5e769a83fa/191"
+        },
+        {
+          "token": "Alternate 195v1",
+          "image": "https://raw2.seadn.io/ethereum/0x8bd8eab9655573165fdafa404e72dc5e769a83fa/a455711ee48b346565879df5849c7107.svg",
+          "url": "https://opensea.io/assets/ethereum/0x8bd8eab9655573165fdafa404e72dc5e769a83fa/195"
+        },
+        {
+          "token": "Alternate 190v1",
+          "image": "https://raw2.seadn.io/ethereum/0x8bd8eab9655573165fdafa404e72dc5e769a83fa/4fcddb10d00524b3f1d2188d65d7a50a.svg",
+          "url": "https://opensea.io/assets/ethereum/0x8bd8eab9655573165fdafa404e72dc5e769a83fa/190"
+        }
+      ]
     },
     {
       "name": "Event Horizon",
@@ -269,7 +357,29 @@
         "active_offers": 0,
         "best": null
       },
-      "image": "https://i2c.seadn.io/ethereum/97ee89a09deb3a068b7840a738473596/5b5db817d3c5e63b960aea5b199032/0c5b5db817d3c5e63b960aea5b199032.avif"
+      "image": "https://i2c.seadn.io/ethereum/97ee89a09deb3a068b7840a738473596/5b5db817d3c5e63b960aea5b199032/0c5b5db817d3c5e63b960aea5b199032.avif",
+      "works": [
+        {
+          "token": "Event Horizon #99",
+          "image": "https://i2c.seadn.io/ethereum/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/68e412af42c4540a9923e035b8c52c/f368e412af42c4540a9923e035b8c52c.png",
+          "url": "https://opensea.io/assets/ethereum/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/44000099"
+        },
+        {
+          "token": "Event Horizon #98",
+          "image": "https://i2c.seadn.io/ethereum/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/57137139918e57ec6a369bcca3054f/4d57137139918e57ec6a369bcca3054f.png",
+          "url": "https://opensea.io/assets/ethereum/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/44000098"
+        },
+        {
+          "token": "Event Horizon #87",
+          "image": "https://i2c.seadn.io/ethereum/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/0ce46ffc84569f92dee73a5d7ea727/4e0ce46ffc84569f92dee73a5d7ea727.png",
+          "url": "https://opensea.io/assets/ethereum/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/44000087"
+        },
+        {
+          "token": "Event Horizon #89",
+          "image": "https://i2c.seadn.io/ethereum/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/be11db40bfa39ce6f3e06d88a5c71a/99be11db40bfa39ce6f3e06d88a5c71a.png",
+          "url": "https://opensea.io/assets/ethereum/0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676/44000089"
+        }
+      ]
     },
     {
       "name": "Cargo",
@@ -294,7 +404,29 @@
         "active_offers": 3,
         "best": "450 USDC @ 5% / 30d"
       },
-      "image": "https://i2c.seadn.io/ethereum/2a9eef654b783e3b90ecec05265dc5d0/5a0824c5f7c2c9abeb771fb932ee48/325a0824c5f7c2c9abeb771fb932ee48.avif"
+      "image": "https://i2c.seadn.io/ethereum/2a9eef654b783e3b90ecec05265dc5d0/5a0824c5f7c2c9abeb771fb932ee48/325a0824c5f7c2c9abeb771fb932ee48.avif",
+      "works": [
+        {
+          "token": "Cargo #996",
+          "image": "https://i2c.seadn.io/ethereum/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/09b928576d4c00064ab2e5e6432bee/6e09b928576d4c00064ab2e5e6432bee.png",
+          "url": "https://opensea.io/assets/ethereum/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/426000996"
+        },
+        {
+          "token": "Cargo #999",
+          "image": "https://i2c.seadn.io/ethereum/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/d4f76ec730e9083584c4476be5d8b7/e0d4f76ec730e9083584c4476be5d8b7.png",
+          "url": "https://opensea.io/assets/ethereum/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/426000999"
+        },
+        {
+          "token": "Cargo #998",
+          "image": "https://i2c.seadn.io/ethereum/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/91f2a6648d751d4d80ca8857b7867d/8d91f2a6648d751d4d80ca8857b7867d.png",
+          "url": "https://opensea.io/assets/ethereum/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/426000998"
+        },
+        {
+          "token": "Cargo #992",
+          "image": "https://i2c.seadn.io/ethereum/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/cabefa0d35d6a7da5a644e45b69522/edcabefa0d35d6a7da5a644e45b69522.png",
+          "url": "https://opensea.io/assets/ethereum/0x99a9b7c1116f9ceeb1652de04d5969cce509b069/426000992"
+        }
+      ]
     },
     {
       "name": "SABOTAGE",
@@ -319,7 +451,29 @@
         "active_offers": 0,
         "best": null
       },
-      "image": "https://i2c.seadn.io/ethereum/66a1c422c1084891ac3de0d79b7ccda3/41ab1cbb2e1e293cc2d7724ff389cb/ae41ab1cbb2e1e293cc2d7724ff389cb.png"
+      "image": "https://i2c.seadn.io/ethereum/66a1c422c1084891ac3de0d79b7ccda3/41ab1cbb2e1e293cc2d7724ff389cb/ae41ab1cbb2e1e293cc2d7724ff389cb.png",
+      "works": [
+        {
+          "token": "SABOTAGE #0 - The Editor",
+          "image": "https://i2c.seadn.io/ethereum/0x5979e05c1c1874da71036aa7fb42c5657888ae2f/0bce89565ee6b258293e0bd9b24bf6/150bce89565ee6b258293e0bd9b24bf6.png",
+          "url": "https://opensea.io/assets/ethereum/0x5979e05c1c1874da71036aa7fb42c5657888ae2f/0"
+        },
+        {
+          "token": "SABOTAGE #1006 - Custom Series",
+          "image": "https://i2c.seadn.io/ethereum/0x5979e05c1c1874da71036aa7fb42c5657888ae2f/92443e119c8949a4d8d502b53bc80b06.png",
+          "url": "https://opensea.io/assets/ethereum/0x5979e05c1c1874da71036aa7fb42c5657888ae2f/1006"
+        },
+        {
+          "token": "SABOTAGE #130",
+          "image": "https://i2c.seadn.io/ethereum/0x5979e05c1c1874da71036aa7fb42c5657888ae2f/9954ba08c917634c237654464cc3ac2c.png",
+          "url": "https://opensea.io/assets/ethereum/0x5979e05c1c1874da71036aa7fb42c5657888ae2f/130"
+        },
+        {
+          "token": "SABOTAGE #60",
+          "image": "https://i2c.seadn.io/ethereum/0x5979e05c1c1874da71036aa7fb42c5657888ae2f/e64ccbbf1a1e6ae43be7c31291af6caa.png",
+          "url": "https://opensea.io/assets/ethereum/0x5979e05c1c1874da71036aa7fb42c5657888ae2f/60"
+        }
+      ]
     },
     {
       "name": "Monogrid",
@@ -375,5 +529,11 @@
     "image": "https://raw2.seadn.io/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/5c62c2e7b9b06f3c66458fd9e01f90/0d5c62c2e7b9b06f3c66458fd9e01f90.svg",
     "caption": "Pixel Pod 69 — PXL POD, 2026. 1,000,000 attached PXL. From the desk's own book.",
     "url": "https://opensea.io/assets/ethereum/0xaee022552b539db18297d7481b6d547c622488b3/69"
+  },
+  "voices": {
+    "title": "Collector voices",
+    "sub": "why people hold this work — in their own words, credited",
+    "invite": "Answer in the ASDF Discord or through the wishlist box below: what's your favorite work of Kim's that you own, and why that one? Selected answers appear here, credited (or anonymous if you prefer).",
+    "entries": []
   }
 }

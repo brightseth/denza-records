@@ -20,6 +20,14 @@ is fully data-driven — a valid record file is a working page. Fields marked
 
   "artist_links": [ { "label": "kimasendorf.com", "url": "https://…" } ],
 
+  "frontispiece": {                // (optional) one work, catalogue-style, opens the page
+    "image": "https://…", "caption": "Pixel Pod 69 — …", "url": "https://…"
+  },
+  "notice": {                      // (optional) time-sensitive band under the header
+    "kicker": "pxl net — opens friday…", "text": "…",
+    "href": "https://…", "link_label": "nodefoundation.com/…"
+  },
+
   "collections": [{
     "name": "PXL POD",
     "chain": "Ethereum",           // or "Tezos" — anything non-Ethereum skips ETH-only aggregates
@@ -48,7 +56,10 @@ is fully data-driven — a valid record file is a working page. Fields marked
     },
     "gondi": {                     // (optional) NFT-lending status
       "listed": true, "active_offers": 0, "best": null      // best = "7,000 USDC @ 5% / 30d"
-    }
+    },
+    "works": [                     // (optional) 3-4 representative pieces — the catalogue layer
+      { "token": "Pixel Pod 12", "image": "https://…", "url": "https://…" }
+    ]
   }],
 
   "token": {                       // (optional) a fungible layer under the works
@@ -70,6 +81,12 @@ is fully data-driven — a valid record file is a working page. Fields marked
     "timeline": [ { "date": "2022-07", "text": "…" } ],
     "questions": [ "Open questions the record cannot answer yet." ],
     "note": "Editorial context, not market data."
+  },
+
+  "voices": {                      // (optional) collector voices — credited quotes
+    "title": "Collector voices", "sub": "…",
+    "invite": "How to contribute — rendered even while entries is empty.",
+    "entries": [ { "quote": "…", "name": "handle", "detail": "deck 4 holder", "date": "2026-07" } ]
   },
 
   "feedback": {                    // (optional) wishlist box config
