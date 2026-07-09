@@ -203,8 +203,12 @@ publishing is a follow-up; this is the cheap version that ships now.)
 - [ ] dry-run the verifier against PXL DEX/POD contracts (known-good) to prove the pass path before NET exists
 - [ ] sync schema doc to the public denza-records repo (SCHEMA.md gains `provenance`)
 
-## Out of scope for v1 (follow-ups)
+## Shipped after v1
 
-Expiring Truth (TTL per state — natural next step, same machinery), full content-hash
+**Expiring Truth** (2026-07-09): claims/figures that imply "now" carry a freshness horizon and age past it — market-state (floors, volumes via the snapshot line; live supply via ttl_days) decays; settled history (reconstructed primary, past sales, artist statements) never expires.  in the renderer; fresh→muted, aging→body, stale→accent.
+
+## Out of scope (follow-ups)
+
+Full content-hash
 immutable URLs, Rotation Passports, applying provenance to Hobbs/DesLauriers records
 (same shape, later), and a public claims-graph view.

@@ -150,7 +150,8 @@
           "as_of": "2026-07-06",
           "by": "authored"
         }
-      ]
+      ],
+      "ttl_days": 14
     }
   },
   "editorial": {
@@ -739,6 +740,6 @@
     "entries": []
   },
   "secondary_usd_note": "Secondary volume shown in ETH only — historical all-time totals can't be honestly spot-converted; per-collection primaries convert at their mint-window ETH price.",
-  "revision": 1,
+  "revision": 2,
   "revised_at": "2026-07-09"
 }

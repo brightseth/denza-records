@@ -104,6 +104,7 @@
     .fold[open] summary{color:var(--ink);margin-bottom:6px}
     .fold p{font-size:14px;color:var(--body)}
     .cstate{font-family:var(--mono);font-size:10px;text-transform:lowercase;letter-spacing:.04em;color:var(--muted);display:inline-block}
+    .fresh-fresh{color:var(--muted)}.fresh-aging{color:var(--body)}.fresh-stale{color:var(--accent)}
     .cstate.accent{color:var(--accent)}
     a.cstate{text-decoration:underline;text-decoration-color:var(--hairline);text-underline-offset:2px}
     a.cstate:hover{color:var(--ink)}
@@ -173,11 +174,14 @@
     if (!p || !p.state) return '';
     const label = STATE_LABEL[p.state] || p.state;
     const date = p.as_of ? ` · ${esc(p.as_of)}` : (p.block ? ` · block ${fmt(p.block, 0)}` : '');
+    const fr = freshness(p.as_of, p.ttl_days);
+    const frbit = fr ? ` <span class="fresh-${fr.tier}">· ${fr.text}</span>` : '';
     const cls = (p.state === 'disputed' || p.state === 'superseded') ? 'cstate accent' : 'cstate';
     const ev = (p.evidence || []).find(e => e && (e.kind === 'etherscan-tx' || e.kind === 'contract-call') && /^0x[0-9a-fA-F]{6,}/.test(String(e.ref)));
     const inner = `${esc(label)}${date}`;
-    if (ev) { const addr = String(ev.ref).split('#')[0]; const path = ev.kind === 'etherscan-tx' ? 'tx' : 'address'; return `<a class="${cls}" href="https://etherscan.io/${path}/${esc(addr)}" target="_blank" rel="noopener">${inner}</a>`; }
-    return `<span class="${cls}">${inner}</span>`;
+    if (fr && fr.tier !== 'fresh') { /* aged claims wear their age */ }
+    if (ev) { const addr = String(ev.ref).split('#')[0]; const path = ev.kind === 'etherscan-tx' ? 'tx' : 'address'; return `<a class="${cls}" href="https://etherscan.io/${path}/${esc(addr)}" target="_blank" rel="noopener">${inner}</a>${frbit}`; }
+    return `<span class="${cls}">${inner}</span>${frbit}`;
   }
   // URLs from the record JSON only ever land in href/src if http(s) or site-relative.
   const safeUrl = u => /^(https?:\/\/|\/)/i.test(String(u ?? '')) ? esc(u) : '';
@@ -191,6 +195,17 @@
   const rate = cur => (cur === 'ETH' || cur === 'WETH') ? d.fx?.eth_usd : cur === 'XTZ' ? d.fx?.xtz_usd : null;
   const fmtUsd = n => n >= 1e6 ? `$${(n / 1e6).toFixed(2)}M` : n >= 1e3 ? `$${Math.round(n / 1e3).toLocaleString('en-US')}K` : `$${n.toFixed(0)}`;
   const usd = (v, cur) => { const r = rate(cur); return v != null && v !== 0 && r ? `<span class="usd">${fmtUsd(v * r)}</span>` : ''; };
+
+  // Expiring Truth — a claim/figure that implies "now" decays. Historical facts
+  // (reconstructed primary, settled sales, artist statements) never expire; market
+  // state (floors, volumes, live supply) ages past its horizon and says so.
+  const daysSince = iso => { const d = Date.parse(iso + 'T00:00:00Z'); return Number.isFinite(d) ? Math.floor((Date.now() - d) / 86400000) : null; };
+  function freshness(asOf, ttlDays) {
+    if (!asOf || !ttlDays) return null;
+    const age = daysSince(asOf); if (age == null) return null;
+    const tier = age <= ttlDays ? 'fresh' : age <= ttlDays * 3 ? 'aging' : 'stale';
+    return { age, tier, text: age <= 0 ? 'today' : `${age}d old` };
+  }
   const bighead = (n, title, sub = '', id = '') => `<div class="bighead"${id ? ` id="${id}"` : ''}><div class="n">${n}</div><h2>${title}</h2>${sub ? `<div class="sub">${sub}</div>` : ''}</div>`;
 
   const eth = d.collections.filter(c => c.floor?.currency === 'ETH');
@@ -525,7 +540,7 @@
     </header>
     ${notice}
     <div class="contents">${contents.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('<span class="dot">·</span>')}</div>
-    <div class="note"><b>Reading the volume figures.</b> ${esc(d.metric_note)}</div>
+    <div class="note"><b>Reading the volume figures.</b> ${esc(d.metric_note)}${(() => { const fr = freshness(d.snapshot, 3); return fr ? ` <span class="fresh-${fr.tier}">Market figures (floors, volumes) are the ${esc(d.snapshot)} snapshot — ${fr.text}${fr.tier==='stale'?', treat as historical, not live':''}.</span>` : ''; })()}</div>
 
     ${bighead('01', 'Collections', `${d.collections.length} bodies of work · ${esc([...new Set(d.collections.map(c => c.chain))].join(' + '))}`, 'collections')}
     <div class="tblwrap"><table>
