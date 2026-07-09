@@ -1,0 +1,368 @@
+{
+  "artist": "Kim Asendorf",
+  "slug": "asendorf",
+  "snapshot": "2026-07-03",
+  "publisher": "DENZA",
+  "lede": "A read-only market record of Kim Asendorf's onchain collections across Ethereum and Tezos — contracts, supply, floors, holders, volumes and lending-market status, assembled from public onchain and marketplace data.",
+  "metric_note": "Marketplace “all-time volume” figures are OpenSea secondary volume only. Primary mints on custom contracts are invisible to that metric — where reconstructed on-chain, primary proceeds are shown separately.",
+  "fx": {
+    "eth_usd": 1759.26,
+    "xtz_usd": 0.244476,
+    "as_of": "2026-07-03",
+    "source": "CoinGecko"
+  },
+  "artist_links": [
+    {
+      "label": "kimasendorf.com",
+      "url": "https://kimasendorf.com"
+    },
+    {
+      "label": "pxl.onl",
+      "url": "https://pxl.onl"
+    },
+    {
+      "label": "X @kimasendorf",
+      "url": "https://x.com/kimasendorf"
+    }
+  ],
+  "token": {
+    "name": "Pixel",
+    "symbol": "PXL",
+    "standard": "ERC-20",
+    "decimals": 0,
+    "chain": "Ethereum",
+    "contract": "0xb6c10b092acf393c9beab16177f6ff7309012a56",
+    "verified": "2026-07-06",
+    "lede": "One fungible token threads Asendorf's post-2024 work: PXL. The PXL DEX and PXL POD collections above are its containers — every deck and pod carries attached pixels, and the deck contract is the token's only primary market, minting at a fixed 0.000001 ETH per PXL. No AMM pool exists; to move size in PXL, you move the container.",
+    "cap": 1024000000,
+    "total_supply": 301728795,
+    "locked": [
+      {
+        "label": "Attached to decks (PXL DEX contract)",
+        "amount": 101600786
+      },
+      {
+        "label": "Attached to pods (PXL POD contract)",
+        "amount": 155865237
+      }
+    ],
+    "free_float": 44262772,
+    "deck_allowance_remaining": 103345016,
+    "decks_with_intact_allowance": 192,
+    "mint_price_eth": 1e-06,
+    "notes": [
+      "All token figures read directly from the contracts on 2026-07-06: cap(), totalSupply(), balanceOf on the two art contracts, per-deck mint allowance summed over decks 1–256, and pixelPrice().",
+      "Free float = minted supply minus PXL held by the two art contracts, i.e. PXL sitting loose in wallets.",
+      "PXL NET opens July 11, 2026 at NODE, Palo Alto (nodefoundation.com). Artist-stated mechanics (Discord, 2026-07-04–08; contract not yet deployed — to be verified on-chain): the net holds up to 128,000,000 PXL; visitors buy PXL at the exhibition from $8 (4,096 PXL) to $2,560 (1,280,000 PXL) — a flat ~$0.002 per PXL, roughly the deck-mint parity in USD; sale proceeds remain at NODE as a fundraiser, with 5% donated to panke.gallery, Berlin. Participation is in-person only (RFID cards + a NODE app smart wallet; each buyer has their own wallet, NODE holds a spend approval). Adding PXL to the net issues a generative receipt NFT ('PXL NODE', 100–31,250 total, 24 properties across shapes/animations/tweens, randomized on-chain). Receipts are immutable — no deposits or withdrawals — but can be burned through the contract to redeem the underlying PXL: the burn destroys the artwork and returns the tokens, a redemption right, not a supply sink. Token 0 displays all PXL in the net without owning them."
+    ]
+  },
+  "editorial": {
+    "title": "The desk's read",
+    "sub": "A chronology of the practice since 2022, and the questions it leaves open",
+    "throughline": "The through-line this desk keeps returning to: Asendorf publishes his market structure the way he publishes his images. The technique that made his name — pixel sorting — has been open source since 2012; the economy around the recent work is authored as deliberately as the works themselves, down to a hard cap that writes the ending into the contract. Somewhere in this chronology the economy stops being a distribution channel and becomes part of the medium.",
+    "timeline": [
+      {
+        "date": "2022-07",
+        "text": "Proof of People, Bright Moments London. This desk's first direct contact with the practice."
+      },
+      {
+        "date": "2023-05",
+        "text": "Event Horizon: 99 works, shown in Tokyo. The smallest of the Ethereum collections and still among the tightest-held."
+      },
+      {
+        "date": "2023-09",
+        "text": "ASDF. The economics still sit outside the work — a conventional release, no token attached. The last project before that changes."
+      },
+      {
+        "date": "2024-03",
+        "text": "X0X: a 1,000-supply drop — the largest edition since Cargo, and the last collection released before the PXL system."
+      },
+      {
+        "date": "2025-01",
+        "text": "PXL DEX: 256 decks sell out. Each deck carries attached PXL, an ERC-20 hard-capped at 1,024,000,000, and the deck contract is the token's only primary market. The economy is now inside the work."
+      },
+      {
+        "date": "2026-03",
+        "text": "PXL POD: 256 pods at 1 ETH plus attached PXL. Asendorf, to Le Random: \"You should feel a risk to participate.\""
+      },
+      {
+        "date": "2026-06",
+        "text": "Every Asendorf Ethereum collection is now listed loan collateral on Gondi. Within the set, the PXL works carry the highest floors and the lowest turnover."
+      },
+      {
+        "date": "2026-07",
+        "text": "PXL NET announced for July 11, 2026 at NODE, Palo Alto (nodefoundation.com). Per the artist (Discord, early July): up to 128M PXL, sold in person from $8/4,096 to $2,560/1,280,000 — about $0.002 per PXL, parity extended to a counter price — proceeds to NODE with 5% to panke.gallery. Participation issues a generative receipt NFT that can be burned to redeem the underlying PXL. Token 0 is the network itself. The contract is not yet deployed; this record verifies those mechanics on-chain once it is."
+      }
+    ],
+    "questions": [
+      "When an artist designs the market for the work as carefully as the work itself, who is the author of that economy — and is collecting in it participation or performance?",
+      "Is PXL the artwork and the decks and pods its display layer — or the reverse? The contracts don't answer this; the price structure might.",
+      "The technique is free — anyone can pixel-sort. The economy is scarce by design. What does it mean that this inversion of the usual arrangement is the point?",
+      "If NET's receipts can only be burned whole, the burn record becomes a public ledger of conviction — judgment rendered empirically, onchain. Who will it judge?",
+      "The hard cap means the system knows how it ends. What is a collector's position in a work whose conclusion is already written?"
+    ],
+    "note": "Editorial context, not market data. Chronology dates are from the public record; the reading is the desk's own. PXL NET mechanics reflect the artist's public statements and will be re-verified against the deployed contract before this record states them as fact."
+  },
+  "feedback": {
+    "title": "Wishlist",
+    "sub": "tell the desk what would make this more useful",
+    "prompt": "This page exists for the collectors around the work. If there's a number you wish it tracked, a view you wish it had, or something it gets wrong, say so — notes shape what gets built next, starting with the PXL NET extension.",
+    "placeholder": "What should this page track or show that it doesn't yet?"
+  },
+  "collections": [
+    {
+      "name": "PXL POD",
+      "chain": "Ethereum",
+      "contract": "0xaee022552b539db18297d7481b6d547c622488b3",
+      "mint": "2026-03-05",
+      "supply": 256,
+      "holders": 159,
+      "url": "https://opensea.io/collection/pxl-pod",
+      "flags": [
+        "Floor indicative — only 2 lifetime secondary sales, none since 2026-03-12."
+      ],
+      "secondary_sales": [
+        {
+          "token": "POD #178",
+          "price": 3.5,
+          "currency": "WETH",
+          "date": "2026-03-08",
+          "note": "accepted offer, during the mint window",
+          "tx": "0xadbc47a85a69f71f67372f15867404d4bfb22f66f0cc6235a28a4e3666292c47"
+        },
+        {
+          "token": "POD #26",
+          "price": 5.5,
+          "currency": "WETH",
+          "date": "2026-03-12",
+          "note": "accepted offer",
+          "tx": "0x4f0444549c8e56a73a4e52f3c90f3b1c085e23c75d0f4a992c0b0c25e472f178"
+        }
+      ],
+      "floor": {
+        "value": 21.2,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 9.0,
+        "currency": "ETH"
+      },
+      "volume_30d": 0,
+      "gondi": {
+        "listed": true,
+        "active_offers": 0,
+        "best": null
+      },
+      "primary": {
+        "proceeds": 194.45,
+        "currency": "ETH",
+        "paid_mint_txs": 126,
+        "window": "2026-03-07 → 2026-03-08",
+        "price_range": "1 ETH + attached PXL",
+        "note": "Verified on-chain via Etherscan — the contract-paid portion only. Every one of the 126 paid mints priced identically: exactly 1 ETH plus the attached PXL at the fixed deck rate (0.000001 ETH/PXL), with zero deviation. The artist confirms this structure — “240 x 1 eth plus Pxl” — and reports total primary was roughly 380 ETH including OTC and gallery sales (Kim Asendorf, 2026-07-06). The 240 pods at 1 ETH beyond the 126 settled on-contract were delivered off-contract: the buyer pays the artist's wallet and the pod is owner-minted straight to them. DENZA's wallet-flow reconstruction corroborates the total — direct payments into artist-controlled wallets during the mint window, a substantial share matched one-to-one to owner-minted or artist-transferred pod deliveries, plus stablecoin settlements. Among the off-contract sales were 15 Duo Pods placed through Nguyen Wahed gallery at $15,000 each (artist-reported)."
+      },
+      "image": "https://raw2.seadn.io/collection/pxl-pod/image_type_logo/ae2acc4f1db462a3c538e940c336e2/32ae2acc4f1db462a3c538e940c336e2.svg"
+    },
+    {
+      "name": "PXL DEX",
+      "chain": "Ethereum",
+      "contract": "0x81345761670fc8b90665466a94c196e26b92ecfb",
+      "mint": "2025-01-17",
+      "supply": 256,
+      "holders": 163,
+      "url": "https://opensea.io/collection/pxl-dex",
+      "flags": [],
+      "floor": {
+        "value": 10.6,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 370.8,
+        "currency": "ETH"
+      },
+      "volume_30d": 0,
+      "gondi": {
+        "listed": true,
+        "active_offers": 3,
+        "best": "7,000 USDC @ 5% / 30d"
+      },
+      "primary": {
+        "proceeds": 199.49,
+        "currency": "ETH",
+        "paid_mint_txs": 243,
+        "window": "2025-01-17 → 2025-02-24",
+        "price_range": "0.5–1 ETH (median 1)",
+        "note": "Complete primary — all 256 tokens accounted for on-chain (243 paid + 13 artist/allowlist mints); verified via Etherscan reconciled against ERC-721 mint events."
+      },
+      "image": "https://raw2.seadn.io/ethereum/7680583beca5447eb61fa682ee406bf5/4e1369f73a17a1c6700b5c3eee6851/e54e1369f73a17a1c6700b5c3eee6851.svg"
+    },
+    {
+      "name": "X0X",
+      "chain": "Ethereum",
+      "contract": "0x03699f24c1a96d91c261f3f6574e8aeba6bc3753",
+      "mint": "2024-03-20",
+      "supply": 1000,
+      "holders": 460,
+      "url": "https://opensea.io/collection/x0x-by-kim-asendorf",
+      "flags": [],
+      "floor": {
+        "value": 0.88,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 27.7,
+        "currency": "ETH"
+      },
+      "volume_30d": 2.81,
+      "gondi": {
+        "listed": true,
+        "active_offers": 3,
+        "best": "600 USDC @ 5% / 30d"
+      },
+      "image": "https://i2c.seadn.io/ethereum/0x03699f24c1a96d91c261f3f6574e8aeba6bc3753/be46d2873754ed1e17da4ab899fc7e9c.png"
+    },
+    {
+      "name": "Alternate",
+      "chain": "Ethereum",
+      "contract": "0x8bd8eab9655573165fdafa404e72dc5e769a83fa",
+      "mint": "2023-12-12",
+      "supply": 200,
+      "holders": 150,
+      "url": "https://opensea.io/collection/alternate-by-kim-asendorf",
+      "flags": [],
+      "floor": {
+        "value": 1.3,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 53.8,
+        "currency": "ETH"
+      },
+      "volume_30d": 0,
+      "gondi": {
+        "listed": true,
+        "active_offers": 0,
+        "best": null
+      },
+      "image": "https://i2c.seadn.io/ethereum/40ca260724af4c18bb34ad29ed87a51a/2bad0d9aa668f7c6135cfdd7e51d55/352bad0d9aa668f7c6135cfdd7e51d55.png"
+    },
+    {
+      "name": "Event Horizon",
+      "chain": "Ethereum",
+      "contract": "0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676",
+      "mint": "2023-05-03",
+      "supply": 99,
+      "holders": 82,
+      "url": "https://opensea.io/collection/event-horizon-by-kim-asendorf",
+      "flags": [],
+      "floor": {
+        "value": 1.75,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 32.2,
+        "currency": "ETH"
+      },
+      "volume_30d": 0,
+      "gondi": {
+        "listed": true,
+        "active_offers": 0,
+        "best": null
+      },
+      "image": "https://i2c.seadn.io/ethereum/97ee89a09deb3a068b7840a738473596/5b5db817d3c5e63b960aea5b199032/0c5b5db817d3c5e63b960aea5b199032.avif"
+    },
+    {
+      "name": "Cargo",
+      "chain": "Ethereum",
+      "contract": "0x99a9b7c1116f9ceeb1652de04d5969cce509b069",
+      "mint": "2023-02-22",
+      "supply": 1000,
+      "holders": 418,
+      "url": "https://opensea.io/collection/cargo-by-kim-asendorf",
+      "flags": [],
+      "floor": {
+        "value": 0.7532,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 1279.3,
+        "currency": "ETH"
+      },
+      "volume_30d": 5.49,
+      "gondi": {
+        "listed": true,
+        "active_offers": 3,
+        "best": "450 USDC @ 5% / 30d"
+      },
+      "image": "https://i2c.seadn.io/ethereum/2a9eef654b783e3b90ecec05265dc5d0/5a0824c5f7c2c9abeb771fb932ee48/325a0824c5f7c2c9abeb771fb932ee48.avif"
+    },
+    {
+      "name": "SABOTAGE",
+      "chain": "Ethereum",
+      "contract": "0x5979e05c1c1874da71036aa7fb42c5657888ae2f",
+      "mint": "2022-03-09",
+      "supply": 265,
+      "holders": 156,
+      "url": "https://opensea.io/collection/s4b0t4g3",
+      "flags": [],
+      "floor": {
+        "value": 1.5869,
+        "currency": "ETH"
+      },
+      "secondary_volume": {
+        "value": 175.7,
+        "currency": "ETH"
+      },
+      "volume_30d": 0,
+      "gondi": {
+        "listed": true,
+        "active_offers": 0,
+        "best": null
+      },
+      "image": "https://i2c.seadn.io/ethereum/66a1c422c1084891ac3de0d79b7ccda3/41ab1cbb2e1e293cc2d7724ff389cb/ae41ab1cbb2e1e293cc2d7724ff389cb.png"
+    },
+    {
+      "name": "Monogrid",
+      "chain": "Tezos",
+      "contract": "KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton",
+      "mint": "2021-10",
+      "supply": 256,
+      "holders": 148,
+      "url": "https://objkt.com/collections/monogrid",
+      "flags": [
+        "Hand-minted 1/1s on the shared hic et nunc contract; figures are objkt gallery aggregates.",
+        "Floor is the lowest active 1/1 ask; treat as indicative."
+      ],
+      "floor": {
+        "value": 25000.0,
+        "currency": "XTZ"
+      },
+      "secondary_volume": {
+        "value": 724735.0,
+        "currency": "XTZ"
+      },
+      "volume_30d": null,
+      "gondi": {
+        "listed": false,
+        "active_offers": 0,
+        "best": null
+      },
+      "image": "/img/monogrid.png"
+    }
+  ],
+  "method": [
+    "Contracts resolved from the artist's OpenSea creator listing (kimasendorf) and cross-checked against the artist's own catalog (eth.kimasendorf.com); Tezos via the objkt creator record.",
+    "USD figures are converted at snapshot spot rates (ETH $1,759.26, XTZ $0.24 — CoinGecko, 2026-07-03) and are indicative only; the ETH/XTZ figures are primary.",
+    "Floors, holder counts and secondary volumes from OpenSea stats (Ethereum) and objkt gallery aggregates (Tezos), snapshot 2026-07-03.",
+    "PXL POD primary proceeds reconstructed from Etherscan: every successful value-bearing transaction into the mint contract; internal-transaction inflows verified zero. Price distribution cross-checks exactly against pxl.onl's published mint stats.",
+    "Where the artist has corrected or extended a figure directly, that statement is quoted with attribution and date — artist-reported numbers are never merged into verified on-chain figures.",
+    "Lending status from Gondi's public GraphQL API (active collection offers at snapshot)."
+  ],
+  "caveats": [
+    "Secondary volumes are single-venue (OpenSea for Ethereum, objkt for Tezos); cross-marketplace reconciliation is pending.",
+    "PXL POD's 194.45 ETH primary is the on-chain contract-paid portion only. Per the artist (2026-07-06), the pods sold at a flat 1 ETH plus their attached PXL — 240 pods at that price — for a total primary of roughly 380 ETH including OTC and gallery sales, among them 15 Duo Pods placed through Nguyen Wahed gallery (Art Basel Hong Kong, March 2026) at $15,000 each. The 1-ETH-plus-PXL structure is verified exactly on the 126 on-contract mints; the pod counts, Duo Pod pricing and gallery figures are artist-reported. Wallet-flow reconstruction (2026-07-06) supports the total: roughly 85 ETH of off-contract payments match one-to-one to pod deliveries; a further ~106 ETH plus ~57.5k USDC of mint-window inflows fit the OTC pattern (payment wallet differs from receiving wallet, or settlement routed through an exchange) and are reported as consistent-with rather than proven per-pod.",
+    "PXL DEX's 199.49 ETH primary is complete (all 256 tokens on-chain) but rests on the on-chain reconstruction alone — pxl.onl publishes the mint count, not proceeds.",
+    "Primary-proceeds reconstruction for the remaining collections (Sabotage, Cargo, Event Horizon, Alternate, X0X), monthly volume series, holder concentration and wash-trade screening are Phase 2 items.",
+    "Thin-floor collections (PXL POD, Monogrid) should be treated as indicative, not established."
+  ]
+}

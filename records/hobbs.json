@@ -1,0 +1,76 @@
+{
+  "artist": "Tyler Hobbs",
+  "slug": "hobbs",
+  "snapshot": "2026-07-03",
+  "publisher": "DENZA",
+  "lede": "Four Ethereum collections — from Fidenza, the defining Art Blocks release of 2021, to the collector-driven QQL system built with Dandelion Wist.",
+  "metric_note": "volume figures are OpenSea marketplace volume only — they exclude primary mint proceeds, sales on other venues (Archipelago, Blur, auction houses), and off-marketplace transfers. For Fidenza in particular, which has significant auction-house and alternative-venue history, the true secondary total is materially higher.",
+  "fx": { "eth_usd": 1759.26, "xtz_usd": 0.244476, "as_of": "2026-07-03", "source": "CoinGecko" },
+  "collections": [
+    {
+      "name": "Fidenza",
+      "chain": "Ethereum",
+      "contract": "0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270",
+      "mint": "2021-06",
+      "supply": 999,
+      "holders": 514,
+      "url": "https://opensea.io/collection/fidenza-by-tyler-hobbs",
+      "floor": { "value": 18.59, "currency": "ETH" },
+      "secondary_volume": { "value": 69553.1, "currency": "ETH" },
+      "volume_30d": 158.68,
+      "flags": ["Art Blocks Curated 78; shares the flagship core contract"]
+    },
+    {
+      "name": "Incomplete Control",
+      "chain": "Ethereum",
+      "contract": "0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270",
+      "mint": "2021-12",
+      "supply": 100,
+      "holders": 57,
+      "url": "https://opensea.io/collection/incomplete-control-by-tyler-hobbs",
+      "floor": { "value": 33.0, "currency": "ETH" },
+      "secondary_volume": { "value": 1443.4, "currency": "ETH" },
+      "volume_30d": 0,
+      "flags": ["Art Blocks Curated; 100 editions"]
+    },
+    {
+      "name": "QQL Mint Pass",
+      "chain": "Ethereum",
+      "contract": "0xc73b17179bf0c59cd5860bb25247d1d1092c1088",
+      "mint": "2022-09",
+      "supply": 930,
+      "holders": 289,
+      "url": "https://opensea.io/collection/qql-mint-pass",
+      "floor": { "value": 1.98, "currency": "ETH" },
+      "secondary_volume": { "value": 10897.1, "currency": "ETH" },
+      "volume_30d": 2.71,
+      "flags": ["supply shrinks as passes are redeemed into QQL artworks"]
+    },
+    {
+      "name": "QQL",
+      "chain": "Ethereum",
+      "contract": "0x845dd2a7ee2a92a0518ab2135365ed63fdba0c88",
+      "mint": "2022-09 →",
+      "supply": 342,
+      "holders": 181,
+      "url": "https://opensea.io/collection/qql",
+      "floor": { "value": 0.75, "currency": "ETH" },
+      "secondary_volume": { "value": 381.4, "currency": "ETH" },
+      "volume_30d": 0,
+      "flags": ["open-ended: minted by redeeming QQL Mint Passes"]
+    }
+  ],
+  "method": [
+    "Supply, holder counts, floors, all-time and 30-day volumes: OpenSea API, snapshot 2026-07-03.",
+    "USD figures are converted at snapshot spot rates (ETH $1,759.26 — CoinGecko, 2026-07-03) and are indicative only; the ETH figures are primary.",
+    "Art Blocks collections (Fidenza, Incomplete Control) share the flagship core contract 0xa7d8…d270; rows are identified by Art Blocks project, not by contract.",
+    "Contract addresses verified against Etherscan; mint windows from Art Blocks project records and on-chain first-mint timestamps."
+  ],
+  "caveats": [
+    "Secondary volumes are single-venue (OpenSea). Fidenza has substantial history on Archipelago, Blur and at auction (Christie's, Sotheby's) that is not captured here — treat the 69,553 ETH as a floor on true secondary.",
+    "Primary mint proceeds have not yet been reconstructed on-chain for these collections (Art Blocks and QQL primary flows route through platform contracts with splits); the primary column is intentionally empty rather than estimated.",
+    "QQL and QQL Mint Pass are complementary, not additive: each QQL artwork is minted by burning a pass, so the pass supply (930) shrinks as the artwork supply (342) grows against the original 999.",
+    "Holder counts are per-collection and gross — one wallet holding in multiple collections is counted once per collection.",
+    "Gondi lending terms are not included in this snapshot."
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "artist": "Matt DesLauriers",
+  "slug": "deslauriers",
+  "snapshot": "2026-07-03",
+  "publisher": "DENZA",
+  "lede": "Three Ethereum collections — two 2021 Art Blocks Curated releases, Meridian and Subscapes, and FOLIO, minted live at Bright Moments Berlin in 2022 — plus Sierra, a 2024 Avant Arte print + digital edition.",
+  "metric_note": "volume figures are OpenSea marketplace volume only — they exclude primary mint proceeds, sales on other venues, and off-marketplace transfers. Meridian and Subscapes also trade on Archipelago and Blur; the totals here understate true secondary.",
+  "fx": { "eth_usd": 1759.26, "xtz_usd": 0.244476, "as_of": "2026-07-03", "source": "CoinGecko" },
+  "collections": [
+    {
+      "name": "Meridian",
+      "chain": "Ethereum",
+      "contract": "0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270",
+      "mint": "2021-09",
+      "supply": 1000,
+      "holders": 635,
+      "url": "https://opensea.io/collection/meridian-by-matt-deslauriers",
+      "floor": { "value": 3.9, "currency": "ETH" },
+      "secondary_volume": { "value": 22392.2, "currency": "ETH" },
+      "volume_30d": 16.17,
+      "flags": ["Art Blocks Curated 163; shares the flagship core contract"]
+    },
+    {
+      "name": "Subscapes",
+      "chain": "Ethereum",
+      "contract": "0xa7d8d9ef8d8ce8992df33d8b8cf4aebabd5bd270",
+      "mint": "2021-04",
+      "supply": 650,
+      "holders": 309,
+      "url": "https://opensea.io/collection/subscapes-by-matt-deslauriers",
+      "floor": { "value": 1.69, "currency": "ETH" },
+      "secondary_volume": { "value": 7955.0, "currency": "ETH" },
+      "volume_30d": 5.3,
+      "flags": ["Art Blocks Curated; shares the flagship core contract"]
+    },
+    {
+      "name": "FOLIO",
+      "chain": "Ethereum",
+      "contract": "0x0a1bbd57033f57e7b6743621b79fcb9eb2ce3676",
+      "mint": "2022-07",
+      "supply": 100,
+      "holders": 80,
+      "url": "https://opensea.io/collection/folio-by-matt-deslauriers",
+      "floor": { "value": 0.8, "currency": "ETH" },
+      "secondary_volume": { "value": 198.9, "currency": "ETH" },
+      "volume_30d": 1.48,
+      "flags": ["Bright Moments (project 8 on the shared CryptoCitizens contract); minted live in Berlin"]
+    },
+    {
+      "name": "Sierra",
+      "chain": "Polygon",
+      "contract": "0x04ffd51d813c737fd54bb8b92ba074106e5dde07",
+      "mint": "2024-02",
+      "supply": 100,
+      "holders": null,
+      "url": "https://opensea.io/collection/sierra-by-matt-deslauriers",
+      "floor": null,
+      "secondary_volume": { "value": 0, "currency": "ETH" },
+      "volume_30d": 0,
+      "flags": ["Avant Arte print + digital release; timed edition of 100 on Polygon; no recorded OpenSea secondary — market inactive. A separate 4-piece Sierra edition exists on Base (0x7c43…3621, 0.065 ETH floor, no sales)."]
+    }
+  ],
+  "method": [
+    "Supply, holder counts, floors, all-time and 30-day volumes: OpenSea API, snapshot 2026-07-03.",
+    "USD figures are converted at snapshot spot rates (ETH $1,759.26 — CoinGecko, 2026-07-03) and are indicative only; the ETH figures are primary.",
+    "Art Blocks collections (Meridian, Subscapes) share the flagship core contract 0xa7d8…d270; rows are identified by Art Blocks project, not by contract.",
+    "FOLIO's mint window verified on-chain: token #99 (id 8000099) minted 2022-07-17 on the Bright Moments contract.",
+    "Sierra verified via OpenSea (Polygon contract created 2024-02-04, matching Avant Arte's February 2024 digital programme)."
+  ],
+  "caveats": [
+    "Secondary volumes are single-venue (OpenSea); Archipelago, Blur and auction sales are not captured — treat the totals as a floor on true secondary.",
+    "Primary mint proceeds have not yet been reconstructed on-chain for these collections (Art Blocks and Bright Moments primary flows route through platform contracts with splits); the primary column is intentionally empty rather than estimated.",
+    "Holder counts are per-collection and gross — one wallet holding in multiple collections is counted once per collection.",
+    "Gondi lending terms are not included in this snapshot.",
+    "FOLIO's 100-token, 80-holder market is thin — its floor should be treated as indicative, not established.",
+    "Sierra's token market is inactive: no OpenSea secondary sales and no reliable holder count on the Polygon edition — treat the row as provenance, not a market.",
+    "DesLauriers' early 1/1 and small-edition work — 27 tokens on Tezos (hic et nunc, 2021-03 → 2022-06) and 1/1s on Foundation — is not tracked here; this record covers collection-scale releases only."
+  ]
+}
