@@ -41,16 +41,15 @@ How figures in these records are obtained, and the rules they follow.
    credited (see CONTRIBUTING.md).
 5. **The desk's positions are disclosed.** The operator collects the work these
    records cover; the live pages say so in the footer.
-
-- **Historical USD** — conversions for past events (primary mints, dated sales) use
-  the ETH price of the event window, not today's spot: exchange daily closes averaged
-  over the window, source and window cited beside the figure. Spot rates are only
-  applied to current values.
+6. **Historical USD converts at the event's price.** Past events (primary mints,
+   dated sales) use exchange daily closes averaged over the event window, source and
+   window cited beside the figure — never today's spot. Spot applies only to current
+   values.
 
 ## Known limits (standing caveats)
 
 - Secondary volumes are single-venue; wash-trade screening has not been done.
-- USD figures are indicative conversions at snapshot spot rates; the crypto
-  figures are primary.
+- USD figures are indicative conversions (spot for current values, event-window
+  averages for historical ones); the crypto figures are primary.
 - Primary reconstruction exists only where stated; remaining collections are
   open items, listed per record under `caveats`.
