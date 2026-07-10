@@ -112,6 +112,14 @@
     .claimlist{margin-top:12px;border-top:1px solid var(--hairline);padding-top:10px}
     .claimrow{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:4px 0;font-size:12.5px;color:var(--body)}
     .claimrow .cl-label{min-width:0}
+    .tldr{margin:8px 0 8px;padding:26px 0 4px;border-top:1px solid var(--hairline)}
+    .tldr .tl-lead{font-size:clamp(21px,2.6vw,26px);font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.25}
+    .tldr p{font-size:17px;color:var(--body);line-height:1.55;margin-top:14px;max-width:64ch}
+    .tl-cta{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:22px}
+    .tl-btn{background:var(--ink);color:var(--bg);border:1px solid var(--ink);font-weight:500;font-size:15px;padding:11px 20px;text-decoration:none;white-space:nowrap}
+    .tl-link{font-family:var(--mono);font-size:13px;color:var(--muted);text-decoration:underline;text-decoration-color:var(--hairline);text-underline-offset:3px}
+    .tl-link:hover{color:var(--ink)}
+    .sec-intro{font-size:15px;color:var(--body);line-height:1.55;max-width:70ch;margin:2px 0 16px}
     html{scroll-behavior:smooth}
     .err{padding:80px 24px;text-align:center;color:var(--muted);font-family:var(--mono)}
     .usd{display:block;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:1px}
@@ -308,6 +316,7 @@
     const ck = (label, value) => `<div class="ck"><span>${label}</span><b>${value}</b></div>`;
     tokenBlock = `
     ${bighead('03', `The ${esc(t.symbol)} ecosystem`, `one token under the works · ${esc(t.standard)} · verified on-chain ${esc(t.verified)}`, 'pxl')}
+    <p class="sec-intro">One fixed-supply token, ${esc(t.symbol)}, runs through all of Kim's recent work. Here's how much exists, how much is locked inside the art versus loose, and how it moves.</p>
     ${t.supply_provenance ? `<div style="margin-top:-8px">${stateChip(t.supply_provenance)}</div>` : ''}
     <div class="cockpit">
       ${ck('contract', `<a href="https://etherscan.io/token/${esc(t.contract)}" target="_blank" rel="noopener">${short(t.contract)}</a>`)}
@@ -538,17 +547,27 @@
       </div>
       ${frontis}
     </header>
+    ${d.tldr ? `<section class="tldr">
+      ${d.tldr.lead ? `<p class="tl-lead">${esc(d.tldr.lead)}</p>` : ''}
+      ${(d.tldr.paras || []).map(x => `<p>${esc(x)}</p>`).join('')}
+      <div class="tl-cta">
+        ${d.token ? `<a href="#book" class="tl-btn">Check your PXL book →</a>` : ''}
+        <a href="#collections" class="tl-link">See the full record ↓</a>
+      </div>
+    </section>` : ''}
     ${notice}
     <div class="contents">${contents.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('<span class="dot">·</span>')}</div>
-    <div class="note"><b>Reading the volume figures.</b> ${esc(d.metric_note)}${(() => { const fr = freshness(d.snapshot, 3); return fr ? ` <span class="fresh-${fr.tier}">Market figures (floors, volumes) are the ${esc(d.snapshot)} snapshot — ${fr.text}${fr.tier==='stale'?', treat as historical, not live':''}.</span>` : ''; })()}</div>
 
     ${bighead('01', 'Collections', `${d.collections.length} bodies of work · ${esc([...new Set(d.collections.map(c => c.chain))].join(' + '))}`, 'collections')}
+    <p class="sec-intro">Every collection Kim has published, oldest to newest, with what it trades for now and what came in when it first sold. Floors and volumes are the ${esc(d.snapshot)} snapshot${(() => { const fr = freshness(d.snapshot, 3); return fr ? ` — ${fr.text}` : ''; })()}.</p>
+    <details class="fold"><summary>how to read the volume columns</summary><p>${esc(d.metric_note)}</p></details>
     <div class="tblwrap"><table>
       <thead><tr><th>Collection</th><th class="num">Supply</th><th class="num">Holders</th><th class="num">Floor</th><th class="num">Secondary vol (all-time)</th><th class="num">Primary (verified)</th><th class="num">30d vol</th><th>Gondi lending</th></tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
 
     ${bighead('02', 'Money flow', 'all-time · Ethereum collections · ETH', 'flow')}
+    <p class="sec-intro">How much money each collection has moved — split into resale (one collector to another) and what the artist earned on the first sale, reconstructed on-chain.</p>
     <div class="chart">${bars}
       <div class="legend"><span><i style="background:var(--ink)"></i>OpenSea secondary</span>${totPrimary > 0 ? '<span><i style="background:var(--gold)"></i>Verified on-chain primary</span>' : ''}</div>
     </div>

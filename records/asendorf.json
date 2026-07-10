@@ -3,7 +3,7 @@
   "slug": "asendorf",
   "snapshot": "2026-07-03",
   "publisher": "DENZA",
-  "lede": "A read-only market record of Kim Asendorf's onchain collections across Ethereum and Tezos — contracts, supply, floors, holders, volumes and lending-market status, assembled from public onchain and marketplace data.",
+  "lede": "A plain, checkable record of Kim Asendorf's onchain art — what exists, what it's worth, and where the money came from. Every number traceable to the blockchain.",
   "metric_note": "Marketplace “all-time volume” figures are OpenSea secondary volume only. Primary mints on custom contracts are invisible to that metric — where reconstructed on-chain, primary proceeds are shown separately.",
   "fx": {
     "eth_usd": 1759.26,
@@ -741,5 +741,13 @@
   },
   "secondary_usd_note": "Secondary volume shown in ETH only — historical all-time totals can't be honestly spot-converted; per-collection primaries convert at their mint-window ETH price.",
   "revision": 2,
-  "revised_at": "2026-07-09"
+  "revised_at": "2026-07-09",
+  "tldr": {
+    "lead": "Kim Asendorf turned pixels into a material.",
+    "paras": [
+      "His recent work runs on PXL — a fixed supply of about a billion pixels that live inside the art itself. Most are already sealed into the pieces; only a small slice floats freely.",
+      "This page is a plain, checkable record of that world: every collection Kim has made, what it trades for, and where the money actually came from — with each number traceable to the blockchain.",
+      "Paste any wallet to see the PXL, decks and pods it holds. And this Saturday, July 11, Kim opens PXL NET at NODE in Palo Alto — the next chapter. When its contract goes live, this page confirms the details on-chain automatically."
+    ]
+  }
 }
